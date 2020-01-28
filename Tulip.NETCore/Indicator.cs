@@ -26,12 +26,22 @@ namespace Tulip
 
         public int Run(double[][] inputs, double[] options, double[][] outputs)
         {
-            return Tinet.indicator_run(_index, inputs, options, outputs);
+            return Tinet.IndicatorRun(_index, inputs, options, outputs);
+        }
+
+        public int Run(decimal[][] inputs, decimal[] options, decimal[][] outputs)
+        {
+            return Tinet.IndicatorRun(_index, inputs, options, outputs);
         }
 
         public int Start(double[] options)
         {
-            return Tinet.indicator_start(_index, options);
+            return Tinet.IndicatorStart(_index, options);
+        }
+
+        public int Start(decimal[] options)
+        {
+            return Tinet.IndicatorStart(_index, options);
         }
     }
 }
