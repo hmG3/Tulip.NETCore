@@ -18,3 +18,5 @@ csharp_prefer_braces = true:suggestion
 csharp_style_var_when_type_is_apparent = true:suggestion
 csharp_new_line_before_else = true
 csharp_style_expression_bodied_methods = true:suggestion
+dotnet_diagnostic.IDE0060.severity = none
+resharper_unused_parameter_local_highlighting=do_not_show

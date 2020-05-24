@@ -75,7 +75,7 @@ namespace Tulip
             return vals[(Index) ((index + size - 1 + val) % size)];
         }
 
-        private static void CalcTrueRange(in double[] low, in double[] high, in double[] close, int i, out double trueRange)
+        private static void CalcTrueRange(double[] low, double[] high, double[] close, int i, out double trueRange)
         {
             double l = low[i];
             double h = high[i];
@@ -96,7 +96,7 @@ namespace Tulip
             trueRange = v;
         }
 
-        private static void CalcTrueRange(in decimal[] low, in decimal[] high, in decimal[] close, int i, out decimal trueRange)
+        private static void CalcTrueRange(decimal[] low, decimal[] high, decimal[] close, int i, out decimal trueRange)
         {
             decimal l = low[i];
             decimal h = high[i];
@@ -117,7 +117,7 @@ namespace Tulip
             trueRange = v;
         }
 
-        private static void CalcDirection(in double[] high, in double[] low, int i, out double up, out double down)
+        private static void CalcDirection(double[] high, double[] low, int i, out double up, out double down)
         {
             up = high[i] - high[i - 1];
             down = low[i - 1] - low[i];
@@ -141,7 +141,7 @@ namespace Tulip
             }
         }
 
-        private static void CalcDirection(in decimal[] high, in decimal[] low, int i, out decimal up, out decimal down)
+        private static void CalcDirection(decimal[] high, decimal[] low, int i, out decimal up, out decimal down)
         {
             up = high[i] - high[i - 1];
             down = low[i - 1] - low[i];
@@ -165,7 +165,7 @@ namespace Tulip
             }
         }
 
-        private static void Simple1(int size, in double[] input, double[] output, Func<double, double> op)
+        private static void Simple1(int size, double[] input, double[] output, Func<double, double> op)
         {
             for (var i = 0; i < size; ++i)
             {
@@ -173,7 +173,7 @@ namespace Tulip
             }
         }
 
-        private static void Simple1(int size, in decimal[] input, decimal[] output, Func<decimal, decimal> op)
+        private static void Simple1(int size, decimal[] input, decimal[] output, Func<decimal, decimal> op)
         {
             for (var i = 0; i < size; ++i)
             {
@@ -181,7 +181,7 @@ namespace Tulip
             }
         }
 
-        private static void Simple2(int size, in double[] input1, in double[] input2, double[] output, Func<double, double, double> op)
+        private static void Simple2(int size, double[] input1, double[] input2, double[] output, Func<double, double, double> op)
         {
             for (var i = 0; i < size; ++i)
             {
@@ -189,7 +189,7 @@ namespace Tulip
             }
         }
 
-        private static void Simple2(int size, in decimal[] input1, decimal[] input2, decimal[] output, Func<decimal, decimal, decimal> op)
+        private static void Simple2(int size, decimal[] input1, decimal[] input2, decimal[] output, Func<decimal, decimal, decimal> op)
         {
             for (var i = 0; i < size; ++i)
             {
@@ -197,7 +197,7 @@ namespace Tulip
             }
         }
 
-        internal static int IndicatorRun(byte index, in double[][] inputs, in double[] options, in double[][] outputs)
+        internal static int IndicatorRun(byte index, double[][] inputs, double[] options, double[][] outputs)
         {
             int length = inputs[0].Length;
 
@@ -311,7 +311,7 @@ namespace Tulip
             };
         }
 
-        internal static int IndicatorRun(byte index, in decimal[][] inputs, in decimal[] options, in decimal[][] outputs)
+        internal static int IndicatorRun(byte index, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
             int length = inputs[0].Length;
 
@@ -425,7 +425,7 @@ namespace Tulip
             };
         }
 
-        internal static int IndicatorStart(byte index, in double[] options) =>
+        internal static int IndicatorStart(byte index, double[] options) =>
             index switch
             {
                 0 => AbsStart(options),
@@ -535,7 +535,7 @@ namespace Tulip
                 _ => TI_INVALID_OPTION
             };
 
-        internal static int IndicatorStart(byte index, in decimal[] options) =>
+        internal static int IndicatorStart(byte index, decimal[] options) =>
             index switch
             {
                 0 => AbsStart(options),

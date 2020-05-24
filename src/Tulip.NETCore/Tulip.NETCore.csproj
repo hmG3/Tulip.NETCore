@@ -3,6 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Tulip</RootNamespace>
+    <Product>Tulip.NETCore</Product>
+    <Description>A pure port to .NET Core (C#) of Tulip Indicators</Description>
+    <Authors>hmG3</Authors>
+    <Copyright>Tulip Charts LLC</Copyright>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageProjectUrl>https://tulipindicators.org</PackageProjectUrl>
+    <Version>0.8</Version>
+    <FileVersion>0.8.2.0</FileVersion>
+    <RepositoryUrl>https://github.com/hmG3/Tulip.NETCore</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>tulip.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -14,5 +25,16 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\tulip.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
