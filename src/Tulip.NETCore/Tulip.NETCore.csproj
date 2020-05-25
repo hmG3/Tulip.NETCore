@@ -5,15 +5,15 @@
     <RootNamespace>Tulip</RootNamespace>
     <Product>Tulip.NETCore</Product>
     <Description>A pure port to .NET Core (C#) of Tulip Indicators</Description>
-    <Authors>hmG3</Authors>
+    <Authors>Anatoliy Siryi</Authors>
     <Copyright>Tulip Charts LLC</Copyright>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://tulipindicators.org</PackageProjectUrl>
-    <Version>0.8</Version>
-    <FileVersion>0.8.2.0</FileVersion>
+    <Version>0.8.0.1</Version>
     <RepositoryUrl>https://github.com/hmG3/Tulip.NETCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIcon>tulip.png</PackageIcon>
+    <PackageTags>tulip;technical;analysis;financial;data;stock;market</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,7 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\LICENSE.md">
+    <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
