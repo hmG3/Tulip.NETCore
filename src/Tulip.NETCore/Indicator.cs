@@ -1,3 +1,5 @@
+using System;
+
 namespace Tulip
 {
     public sealed class Indicator
@@ -10,7 +12,7 @@ namespace Tulip
             Name = name;
             FullName = fullName;
             Inputs = inputs.Split('|');
-            Options = options.Split('|');
+            Options = !String.IsNullOrEmpty(options) ? options.Split('|') : Array.Empty<string>();
             Outputs = outputs.Split('|');
         }
 
