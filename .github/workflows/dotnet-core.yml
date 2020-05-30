@@ -23,7 +23,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test & Coverage
-      run: dotnet test --no-restore --nologo --logger "console;verbosity=normal" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=coverage\opencover-coverage.xml
+      run: dotnet test --no-restore --nologo --logger "console;verbosity=normal" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=coverage/opencover-coverage.xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1.0.7
       with:
