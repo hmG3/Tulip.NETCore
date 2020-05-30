@@ -22,5 +22,12 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --nologo --logger "console;verbosity=normal"
+    - name: Test & Coverage
+      run: dotnet test --no-restore --nologo --logger "console;verbosity=normal" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=coverage.xml
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1.0.7
+      with:
+        name: codecov-tulip
+        file: ./tests/Tulip.NETCore.Tests/coverage/coverage.xml
+        flags: unittests
+        fail_ci_if_error: true
