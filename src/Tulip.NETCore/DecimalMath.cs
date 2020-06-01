@@ -170,7 +170,11 @@ namespace Tulip
             }
 
             x--;
-            if (x == 0) return count;
+            if (x == 0)
+            {
+                return count;
+            }
+
             var result = Decimal.Zero;
             int iteration = default;
             var y = Decimal.One;

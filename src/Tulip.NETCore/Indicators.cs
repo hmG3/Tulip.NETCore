@@ -1,249 +1,324 @@
 using System;
+using System.Collections.Generic;
 
 namespace Tulip
 {
     public static class Indicators
     {
-        public static Indicator abs = new Indicator(0, nameof(abs), "Vector Absolute Value", "real", String.Empty, nameof(abs));
+        internal static readonly IDictionary<string, Indicator> IndicatorsDefinition = new Dictionary<string, Indicator>
+        {
+            { nameof(abs), new Indicator("Abs", "Vector Absolute Value", "real", String.Empty, nameof(abs)) },
+            { nameof(acos), new Indicator("Acos", "Vector Arccosine", "real", String.Empty, nameof(acos)) },
+            { nameof(ad), new Indicator("Ad", "Accumulation/Distribution Line", "high|low|close|volume", String.Empty, nameof(ad)) },
+            { nameof(add), new Indicator("Add", "Vector Addition", "real|real", String.Empty, nameof(add)) },
+            { nameof(adosc), new Indicator("AdOsc", "Accumulation/Distribution Oscillator", "high|low|close|volume", "short period|long period", nameof(adosc)) },
+            { nameof(adx), new Indicator("Adx", "Average Directional Movement Index", "high|low|close", "period", nameof(dx)) },
+            { nameof(adxr), new Indicator("Adxr", "Average Directional Movement Rating", "high|low|close", "period", nameof(dx)) },
+            { nameof(ao), new Indicator("Ao", "Awesome Oscillator", "high|low", String.Empty, nameof(ao)) },
+            { nameof(apo), new Indicator("Apo", "Absolute Price Oscillator", "real", "short period|long period", nameof(apo)) },
+            { nameof(aroon), new Indicator("Aroon", "Aroon", "high|low", "period", "aroon_down|aroon_up") },
+            { nameof(aroonosc), new Indicator("AroonOsc", "Aroon Oscillator", "high|low", "period", nameof(aroonosc)) },
+            { nameof(asin), new Indicator("Asin", "Vector Arcsine", "real", String.Empty, nameof(asin)) },
+            { nameof(atan), new Indicator("Atan", "Vector Arctangent", "real", String.Empty, nameof(atan)) },
+            { nameof(atr), new Indicator("Atr", "Average True Range", "high|low|close", "period", nameof(atr)) },
+            { nameof(avgprice), new Indicator("AvgPrice", "Average Price", "open|high|low|close", String.Empty, nameof(avgprice)) },
+            { nameof(bbands), new Indicator("Bbands", "Bollinger Bands", "real", "period|stddev", "bbands_lower|bbands_middle|bbands_upper") },
+            { nameof(bop), new Indicator("Bop", "Balance of Power", "open|high|low|close", String.Empty, nameof(bop)) },
+            { nameof(cci), new Indicator("Cci", "Commodity Channel Index", "high|low|close", "period", nameof(cci)) },
+            { nameof(ceil), new Indicator("Ceil", "Vector Ceiling", "real", String.Empty, nameof(ceil)) },
+            { nameof(cmo), new Indicator("Cmo", "Chande Momentum Oscillator", "real", "period", nameof(cmo)) },
+            { nameof(cos), new Indicator("Cos", "Vector Cosine", "real", String.Empty, nameof(cos)) },
+            { nameof(cosh), new Indicator("Cosh", "Vector Hyperbolic Cosine", "real", String.Empty, nameof(cosh)) },
+            { nameof(crossany), new Indicator("Crossany", "Crossany", "real|real", String.Empty, nameof(crossany)) },
+            { nameof(crossover), new Indicator("Crossover", "Crossover", "real|real", String.Empty, nameof(crossover)) },
+            { nameof(cvi), new Indicator("Cvi", "Chaikins Volatility", "high|low", "period", nameof(cvi)) },
+            { nameof(decay), new Indicator("Decay", "Linear Decay", "real", "period", nameof(decay)) },
+            { nameof(dema), new Indicator("Dema", "Double Exponential Moving Average", "real", "period", nameof(dema)) },
+            { nameof(di), new Indicator("Di", "Directional Indicator", "high|low|close", "period", "plus_di|minus_di") },
+            { nameof(div), new Indicator("Div", "Vector Division", "real|real", String.Empty, nameof(div)) },
+            { nameof(dm), new Indicator("Dm", "Directional Movement", "high|low", "period", "plus_dm|minus_dm") },
+            { nameof(dpo), new Indicator("Dpo", "Detrended Price Oscillator", "real", "period", nameof(dpo)) },
+            { nameof(dx), new Indicator("Dx", "Directional Movement Index", "high|low|close", "period", nameof(dx)) },
+            { nameof(edecay), new Indicator("Edecay", "Exponential Decay", "real", "period", nameof(edecay)) },
+            { nameof(ema), new Indicator("Ema", "Exponential Moving Average", "real", "period", nameof(ema)) },
+            { nameof(emv), new Indicator("Emv", "Ease of Movement", "high|low|volume", String.Empty, nameof(emv)) },
+            { nameof(exp), new Indicator("Exp", "Vector Exponential", "real", String.Empty, nameof(exp)) },
+            { nameof(fisher), new Indicator("Fisher", "Fisher Transform", "high|low", "period", "fisher|fisher_signal") },
+            { nameof(floor), new Indicator("Floor", "Vector Floor", "real", String.Empty, nameof(floor)) },
+            { nameof(fosc), new Indicator("Fosc", "Forecast Oscillator", "real", "period", nameof(fosc)) },
+            { nameof(hma), new Indicator("Hma", "Hull Moving Average", "real", "period", nameof(hma)) },
+            { nameof(kama), new Indicator("Kama", "Kaufman Adaptive Moving Average", "real", "period", nameof(kama)) },
+            { nameof(kvo), new Indicator("Kvo", "Klinger Volume Oscillator", "high|low|close|volume", "short period|long period", nameof(kvo)) },
+            { nameof(lag), new Indicator("Lag", "Lag", "real", "period", nameof(lag)) },
+            { nameof(linreg), new Indicator("LinReg", "Linear Regression", "real", "period", nameof(linreg)) },
+            { nameof(linregintercept), new Indicator("LinRegIntercept", "Linear Regression Intercept", "real", "period", nameof(linregintercept)) },
+            { nameof(linregslope), new Indicator("LinRegSlope", "Linear Regression Slope", "real", "period", nameof(linregslope)) },
+            { nameof(ln), new Indicator("Ln", "Vector Natural Log", "real", String.Empty, nameof(ln)) },
+            { nameof(log10), new Indicator("Log10", "Vector Base-10 Log", "real", String.Empty, nameof(log10)) },
+            { nameof(macd), new Indicator("Macd", "Moving Average Convergence/Divergence", "real", "short period|long period|signal period", "macd|macd_signal|macd_histogram") },
+            { nameof(marketfi), new Indicator("MarketFi", "Market Facilitation Index", "high|low|volume", String.Empty, nameof(marketfi)) },
+            { nameof(mass), new Indicator("Mass", "Mass Index", "high|low", "period", nameof(mass)) },
+            { nameof(max), new Indicator("Max", "Maximum In Period", "real", "period", nameof(max)) },
+            { nameof(md), new Indicator("Md", "Mean Deviation Over Period", "real", "period", nameof(md)) },
+            { nameof(medprice), new Indicator("MedPrice", "Median Price", "high|low", String.Empty, nameof(medprice)) },
+            { nameof(mfi), new Indicator("Mfi", "Money Flow Index", "high|low|close|volume", "period", nameof(mfi)) },
+            { nameof(min), new Indicator("Min", "Minimum In Period", "real", "period", nameof(min)) },
+            { nameof(mom), new Indicator("Mom", "Momentum", "real", "period", nameof(mom)) },
+            { nameof(msw), new Indicator("Msw", "Mesa Sine Wave", "real", "period", "msw_sine|msw_lead") },
+            { nameof(mul), new Indicator("Mul", "Vector Multiplication", "real|real", String.Empty, nameof(mul)) },
+            { nameof(natr), new Indicator("Natr", "Normalized Average True Range", "high|low|close", "period", nameof(natr)) },
+            { nameof(nvi), new Indicator("Nvi", "Negative Volume Index", "close|volume", String.Empty, nameof(nvi))},
+            { nameof(obv), new Indicator("Obv", "On Balance Volume", "close|volume", String.Empty, nameof(obv)) },
+            { nameof(ppo), new Indicator("Ppo", "Percentage Price Oscillator", "real", "short period|long period", nameof(ppo)) },
+            { nameof(psar), new Indicator("Psar", "Parabolic SAR", "high|low", "acceleration factor step|acceleration factor maximum", nameof(psar)) },
+            { nameof(pvi), new Indicator("Pvi", "Positive Volume Index", "close|volume", String.Empty, nameof(pvi)) },
+            { nameof(qstick), new Indicator("Qstick", "Qstick", "open|close", "period", nameof(qstick)) },
+            { nameof(roc), new Indicator("Roc", "Rate of Change", "real", "period", nameof(roc)) },
+            { nameof(rocr), new Indicator("RocR", "Rate of Change Ratio", "real", "period", nameof(rocr)) },
+            { nameof(round), new Indicator("Round", "Vector Round", "real", String.Empty, nameof(round)) },
+            { nameof(rsi), new Indicator("Rsi", "Relative Strength Index", "real", "period", nameof(rsi)) },
+            { nameof(sin), new Indicator("Sin", "Vector Sine", "real", String.Empty, nameof(sin)) },
+            { nameof(sinh), new Indicator("Sinh", "Vector Hyperbolic Sine", "real", String.Empty, nameof(sinh)) },
+            { nameof(sma), new Indicator("Sma", "Simple Moving Average", "real", "period", nameof(sma)) },
+            { nameof(sqrt), new Indicator("Sqrt", "Vector Square Root", "real", String.Empty, nameof(sqrt)) },
+            { nameof(stddev), new Indicator("StdDev", "Standard Deviation Over Period", "real", "period", nameof(stddev)) },
+            { nameof(stderr), new Indicator("StdErr", "Standard Error Over Period", "real", "period", nameof(stderr)) },
+            { nameof(stoch), new Indicator("Stoch", "Stochastic Oscillator", "high|low|close", "%k period|%k slowing period|%d period", "stoch_k|stoch_d") },
+            { nameof(stochrsi), new Indicator("StochRsi", "Stochastic RSI", "real", "period", nameof(stochrsi)) },
+            { nameof(sub), new Indicator("Sub", "Vector Subtraction", "real|real", String.Empty, nameof(sub)) },
+            { nameof(sum), new Indicator("Sum", "Sum Over Period", "real", "period", nameof(sum)) },
+            { nameof(tan), new Indicator("Tan", "Vector Tangent", "real", String.Empty, nameof(tan)) },
+            { nameof(tanh), new Indicator("Tanh", "Vector Hyperbolic Tangent", "real", String.Empty, nameof(tanh)) },
+            { nameof(tema), new Indicator("Tema", "Triple Exponential Moving Average", "real", "period", nameof(tema)) },
+            { nameof(todeg), new Indicator("ToDeg", "Vector Degree Conversion", "real", String.Empty, "degrees") },
+            { nameof(torad), new Indicator("ToRad", "Vector Radian Conversion", "real", String.Empty, "radians") },
+            { nameof(tr), new Indicator("Tr", "True Range", "high|low|close", String.Empty, nameof(tr)) },
+            { nameof(trima), new Indicator("Trima", "Triangular Moving Average", "real", "period", nameof(trima)) },
+            { nameof(trix), new Indicator("Trix", "Trix", "real", "period", nameof(trix)) },
+            { nameof(trunc), new Indicator("Trunc", "Vector Truncate", "real", String.Empty, nameof(trunc)) },
+            { nameof(tsf), new Indicator("Tsf", "Time Series Forecast", "real", "period", nameof(tsf)) },
+            { nameof(typprice), new Indicator("TypPrice", "Typical Price", "high|low|close", String.Empty, nameof(typprice)) },
+            { nameof(ultosc), new Indicator("UltOsc", "Ultimate Oscillator", "high|low|close", "short period|medium period|long period", nameof(ultosc)) },
+            { nameof(var), new Indicator("Var", "Variance Over Period", "real", "period", nameof(var)) },
+            { nameof(vhf), new Indicator("Vhf", "Vertical Horizontal Filter", "real", "period", nameof(vhf)) },
+            { nameof(vidya), new Indicator("Vidya", "Variable Index Dynamic Average", "real", "short period|long period|alpha", nameof(vidya)) },
+            { nameof(volatility), new Indicator("Volatility", "Annualized Historical Volatility", "real", "period", nameof(volatility)) },
+            { nameof(vosc), new Indicator("Vosc", "Volume Oscillator", "volume", "short period|long period", nameof(vosc)) },
+            { nameof(vwma), new Indicator("Vwma", "Volume Weighted Moving Average", "close|volume", "period", nameof(vwma)) },
+            { nameof(wad), new Indicator("Wad", "Williams Accumulation/Distribution", "high|low|close", String.Empty, nameof(wad)) },
+            { nameof(wcprice), new Indicator("WcPrice", "Weighted Close Price", "high|low|close", String.Empty, nameof(wcprice)) },
+            { nameof(wilders), new Indicator("Wilders", "Wilders Smoothing", "real", "period", nameof(wilders)) },
+            { nameof(willr), new Indicator("WillR", "Williams %R", "high|low|close", "period", nameof(willr)) },
+            { nameof(wma), new Indicator("Wma", "Weighted Moving Average", "real", "period", nameof(wma)) },
+            { nameof(zlema), new Indicator("ZlEma", "Zero-Lag Exponential Moving Average", "real", "period", nameof(zlema)) }
+        };
 
-        public static Indicator acos = new Indicator(1, nameof(acos), "Vector Arccosine", "real", String.Empty, nameof(acos));
+        public static Indicator abs = IndicatorsDefinition[nameof(abs)];
 
-        public static Indicator ad =
-            new Indicator(2, nameof(ad), "Accumulation/Distribution Line", "high|low|close|volume", String.Empty, nameof(ad));
+        public static Indicator acos = IndicatorsDefinition[nameof(acos)];
 
-        public static Indicator add = new Indicator(3, nameof(add), "Vector Addition", "real|real", String.Empty, nameof(add));
+        public static Indicator ad = IndicatorsDefinition[nameof(ad)];
 
-        public static Indicator adosc =
-            new Indicator(4, nameof(adosc), "Accumulation/Distribution Oscillator", "high|low|close|volume", "short period|long period",
-                nameof(adosc));
+        public static Indicator add = IndicatorsDefinition[nameof(add)];
 
-        public static Indicator adx = new Indicator(5, nameof(adx), "Average Directional Movement Index", "high|low|close", "period",
-            nameof(dx));
+        public static Indicator adosc = IndicatorsDefinition[nameof(adosc)];
 
-        public static Indicator adxr = new Indicator(6, nameof(adxr), "Average Directional Movement Rating", "high|low|close", "period",
-            nameof(dx));
+        public static Indicator adx = IndicatorsDefinition[nameof(adx)];
 
-        public static Indicator ao = new Indicator(7, nameof(ao), "Awesome Oscillator", "high|low", String.Empty, nameof(ao));
+        public static Indicator adxr = IndicatorsDefinition[nameof(adxr)];
 
-        public static Indicator apo =
-            new Indicator(8, nameof(apo), "Absolute Price Oscillator", "real", "short period|long period", nameof(apo));
+        public static Indicator ao = IndicatorsDefinition[nameof(ao)];
 
-        public static Indicator aroon = new Indicator(9, nameof(aroon), "Aroon", "high|low", "period", "aroon_down|aroon_up");
+        public static Indicator apo = IndicatorsDefinition[nameof(apo)];
 
-        public static Indicator aroonosc = new Indicator(10, nameof(aroonosc), "Aroon Oscillator", "high|low", "period", nameof(aroonosc));
+        public static Indicator aroon = IndicatorsDefinition[nameof(aroon)];
 
-        public static Indicator asin = new Indicator(11, nameof(asin), "Vector Arcsine", "real", String.Empty, nameof(asin));
+        public static Indicator aroonosc = IndicatorsDefinition[nameof(aroonosc)];
 
-        public static Indicator atan = new Indicator(12, nameof(atan), "Vector Arctangent", "real", String.Empty, nameof(atan));
+        public static Indicator asin = IndicatorsDefinition[nameof(asin)];
 
-        public static Indicator atr = new Indicator(13, nameof(atr), "Average True Range", "high|low|close", "period", nameof(atr));
+        public static Indicator atan = IndicatorsDefinition[nameof(atan)];
 
-        public static Indicator avgprice =
-            new Indicator(14, nameof(avgprice), "Average Price", "open|high|low|close", String.Empty, nameof(avgprice));
+        public static Indicator atr = IndicatorsDefinition[nameof(atr)];
 
-        public static Indicator bbands =
-            new Indicator(15, nameof(bbands), "Bollinger Bands", "real", "period|stddev", "bbands_lower|bbands_middle|bbands_upper");
+        public static Indicator avgprice = IndicatorsDefinition[nameof(avgprice)];
 
-        public static Indicator bop = new Indicator(16, nameof(bop), "Balance of Power", "open|high|low|close", String.Empty, nameof(bop));
+        public static Indicator bbands = IndicatorsDefinition[nameof(bbands)];
 
-        public static Indicator cci = new Indicator(17, nameof(cci), "Commodity Channel Index", "high|low|close", "period", nameof(cci));
+        public static Indicator bop = IndicatorsDefinition[nameof(bop)];
 
-        public static Indicator ceil = new Indicator(18, nameof(ceil), "Vector Ceiling", "real", String.Empty, nameof(ceil));
+        public static Indicator cci = IndicatorsDefinition[nameof(cci)];
 
-        public static Indicator cmo = new Indicator(19, nameof(cmo), "Chande Momentum Oscillator", "real", "period", nameof(cmo));
+        public static Indicator ceil = IndicatorsDefinition[nameof(ceil)];
 
-        public static Indicator cos = new Indicator(20, nameof(cos), "Vector Cosine", "real", String.Empty, nameof(cos));
+        public static Indicator cmo = IndicatorsDefinition[nameof(cmo)];
 
-        public static Indicator cosh = new Indicator(21, nameof(cosh), "Vector Hyperbolic Cosine", "real", String.Empty, nameof(cosh));
+        public static Indicator cos = IndicatorsDefinition[nameof(cos)];
 
-        public static Indicator crossany = new Indicator(22, nameof(crossany), "Crossany", "real|real", String.Empty, nameof(crossany));
+        public static Indicator cosh = IndicatorsDefinition[nameof(cosh)];
 
-        public static Indicator crossover = new Indicator(23, nameof(crossover), "Crossover", "real|real", String.Empty, nameof(crossover));
+        public static Indicator crossany = IndicatorsDefinition[nameof(crossany)];
 
-        public static Indicator cvi = new Indicator(24, nameof(cvi), "Chaikins Volatility", "high|low", "period", nameof(cvi));
+        public static Indicator crossover = IndicatorsDefinition[nameof(crossover)];
 
-        public static Indicator decay = new Indicator(25, nameof(decay), "Linear Decay", "real", "period", nameof(decay));
+        public static Indicator cvi = IndicatorsDefinition[nameof(cvi)];
 
-        public static Indicator dema = new Indicator(26, nameof(dema), "Double Exponential Moving Average", "real", "period", nameof(dema));
+        public static Indicator decay = IndicatorsDefinition[nameof(decay)];
 
-        public static Indicator di = new Indicator(27, nameof(di), "Directional Indicator", "high|low|close", "period", "plus_di|minus_di");
+        public static Indicator dema = IndicatorsDefinition[nameof(dema)];
 
-        public static Indicator div = new Indicator(28, nameof(div), "Vector Division", "real|real", String.Empty, nameof(div));
+        public static Indicator di = IndicatorsDefinition[nameof(di)];
 
-        public static Indicator dm = new Indicator(29, nameof(dm), "Directional Movement", "high|low", "period", "plus_dm|minus_dm");
+        public static Indicator div = IndicatorsDefinition[nameof(div)];
 
-        public static Indicator dpo = new Indicator(30, nameof(dpo), "Detrended Price Oscillator", "real", "period", nameof(dpo));
+        public static Indicator dm = IndicatorsDefinition[nameof(dm)];
 
-        public static Indicator dx = new Indicator(31, nameof(dx), "Directional Movement Index", "high|low|close", "period", nameof(dx));
+        public static Indicator dpo = IndicatorsDefinition[nameof(dpo)];
 
-        public static Indicator edecay = new Indicator(32, nameof(edecay), "Exponential Decay", "real", "period", nameof(edecay));
+        public static Indicator dx = IndicatorsDefinition[nameof(dx)];
 
-        public static Indicator ema = new Indicator(33, nameof(ema), "Exponential Moving Average", "real", "period", nameof(ema));
+        public static Indicator edecay = IndicatorsDefinition[nameof(edecay)];
 
-        public static Indicator emv = new Indicator(34, nameof(emv), "Ease of Movement", "high|low|volume", String.Empty, nameof(emv));
+        public static Indicator ema = IndicatorsDefinition[nameof(ema)];
 
-        public static Indicator exp = new Indicator(35, nameof(exp), "Vector Exponential", "real", String.Empty, nameof(exp));
+        public static Indicator emv = IndicatorsDefinition[nameof(emv)];
 
-        public static Indicator fisher =
-            new Indicator(36, nameof(fisher), "Fisher Transform", "high|low", "period", "fisher|fisher_signal");
+        public static Indicator exp = IndicatorsDefinition[nameof(exp)];
 
-        public static Indicator floor = new Indicator(37, nameof(floor), "Vector Floor", "real", String.Empty, nameof(floor));
+        public static Indicator fisher = IndicatorsDefinition[nameof(fisher)];
 
-        public static Indicator fosc = new Indicator(38, nameof(fosc), "Forecast Oscillator", "real", "period", nameof(fosc));
+        public static Indicator floor = IndicatorsDefinition[nameof(floor)];
 
-        public static Indicator hma = new Indicator(39, nameof(hma), "Hull Moving Average", "real", "period", nameof(hma));
+        public static Indicator fosc = IndicatorsDefinition[nameof(fosc)];
 
-        public static Indicator kama = new Indicator(40, nameof(kama), "Kaufman Adaptive Moving Average", "real", "period", nameof(kama));
+        public static Indicator hma = IndicatorsDefinition[nameof(hma)];
 
-        public static Indicator kvo =
-            new Indicator(41, nameof(kvo), "Klinger Volume Oscillator", "high|low|close|volume", "short period|long period", nameof(kvo));
+        public static Indicator kama = IndicatorsDefinition[nameof(kama)];
 
-        public static Indicator lag = new Indicator(42, nameof(lag), "Lag", "real", "period", nameof(lag));
+        public static Indicator kvo = IndicatorsDefinition[nameof(kvo)];
 
-        public static Indicator linreg = new Indicator(43, nameof(linreg), "Linear Regression", "real", "period", nameof(linreg));
+        public static Indicator lag = IndicatorsDefinition[nameof(lag)];
 
-        public static Indicator linregintercept =
-            new Indicator(44, nameof(linregintercept), "Linear Regression Intercept", "real", "period", nameof(linregintercept));
+        public static Indicator linreg = IndicatorsDefinition[nameof(linreg)];
 
-        public static Indicator linregslope =
-            new Indicator(45, nameof(linregslope), "Linear Regression Slope", "real", "period", nameof(linregslope));
+        public static Indicator linregintercept = IndicatorsDefinition[nameof(linregintercept)];
 
-        public static Indicator ln = new Indicator(46, nameof(ln), "Vector Natural Log", "real", String.Empty, nameof(ln));
+        public static Indicator linregslope = IndicatorsDefinition[nameof(linregslope)];
 
-        public static Indicator log10 = new Indicator(47, nameof(log10), "Vector Base-10 Log", "real", String.Empty, nameof(log10));
+        public static Indicator ln = IndicatorsDefinition[nameof(ln)];
 
-        public static Indicator macd =
-            new Indicator(48, nameof(macd), "Moving Average Convergence/Divergence", "real", "short period|long period|signal period",
-                "macd|macd_signal|macd_histogram");
+        public static Indicator log10 = IndicatorsDefinition[nameof(log10)];
 
-        public static Indicator marketfi =
-            new Indicator(49, nameof(marketfi), "Market Facilitation Index", "high|low|volume", String.Empty, nameof(marketfi));
+        public static Indicator macd = IndicatorsDefinition[nameof(macd)];
 
-        public static Indicator mass = new Indicator(50, nameof(mass), "Mass Index", "high|low", "period", nameof(mass));
+        public static Indicator marketfi = IndicatorsDefinition[nameof(marketfi)];
 
-        public static Indicator max = new Indicator(51, nameof(max), "Maximum In Period", "real", "period", nameof(max));
+        public static Indicator mass = IndicatorsDefinition[nameof(mass)];
 
-        public static Indicator md = new Indicator(52, nameof(md), "Mean Deviation Over Period", "real", "period", nameof(md));
+        public static Indicator max = IndicatorsDefinition[nameof(max)];
 
-        public static Indicator medprice = new Indicator(53, nameof(medprice), "Median Price", "high|low", String.Empty, nameof(medprice));
+        public static Indicator md = IndicatorsDefinition[nameof(md)];
 
-        public static Indicator mfi = new Indicator(54, nameof(mfi), "Money Flow Index", "high|low|close|volume", "period", nameof(mfi));
+        public static Indicator medprice = IndicatorsDefinition[nameof(medprice)];
 
-        public static Indicator min = new Indicator(55, nameof(min), "Minimum In Period", "real", "period", nameof(min));
+        public static Indicator mfi = IndicatorsDefinition[nameof(mfi)];
 
-        public static Indicator mom = new Indicator(56, nameof(mom), "Momentum", "real", "period", nameof(mom));
+        public static Indicator min = IndicatorsDefinition[nameof(min)];
 
-        public static Indicator msw = new Indicator(57, nameof(msw), "Mesa Sine Wave", "real", "period", "msw_sine|msw_lead");
+        public static Indicator mom = IndicatorsDefinition[nameof(mom)];
 
-        public static Indicator mul = new Indicator(58, nameof(mul), "Vector Multiplication", "real|real", String.Empty, nameof(mul));
+        public static Indicator msw = IndicatorsDefinition[nameof(msw)];
 
-        public static Indicator natr =
-            new Indicator(59, nameof(natr), "Normalized Average True Range", "high|low|close", "period", nameof(natr));
+        public static Indicator mul = IndicatorsDefinition[nameof(mul)];
 
-        public static Indicator nvi = new Indicator(60, nameof(nvi), "Negative Volume Index", "close|volume", String.Empty, nameof(nvi));
+        public static Indicator natr = IndicatorsDefinition[nameof(natr)];
 
-        public static Indicator obv = new Indicator(61, nameof(obv), "On Balance Volume", "close|volume", String.Empty, nameof(obv));
+        public static Indicator nvi = IndicatorsDefinition[nameof(nvi)];
 
-        public static Indicator ppo = new Indicator(62, nameof(ppo), "Percentage Price Oscillator", "real", "short period|long period",
-            nameof(ppo));
+        public static Indicator obv = IndicatorsDefinition[nameof(obv)];
 
-        public static Indicator psar =
-            new Indicator(63, nameof(psar), "Parabolic SAR", "high|low", "acceleration factor step|acceleration factor maximum",
-                nameof(psar));
+        public static Indicator ppo = IndicatorsDefinition[nameof(ppo)];
 
-        public static Indicator pvi = new Indicator(64, nameof(pvi), "Positive Volume Index", "close|volume", String.Empty, nameof(pvi));
+        public static Indicator psar = IndicatorsDefinition[nameof(psar)];
 
-        public static Indicator qstick = new Indicator(65, nameof(qstick), "Qstick", "open|close", "period", nameof(qstick));
+        public static Indicator pvi = IndicatorsDefinition[nameof(pvi)];
 
-        public static Indicator roc = new Indicator(66, nameof(roc), "Rate of Change", "real", "period", nameof(roc));
+        public static Indicator qstick = IndicatorsDefinition[nameof(qstick)];
 
-        public static Indicator rocr = new Indicator(67, nameof(rocr), "Rate of Change Ratio", "real", "period", nameof(rocr));
+        public static Indicator roc = IndicatorsDefinition[nameof(roc)];
 
-        public static Indicator round = new Indicator(68, nameof(round), "Vector Round", "real", String.Empty, nameof(round));
+        public static Indicator rocr = IndicatorsDefinition[nameof(rocr)];
 
-        public static Indicator rsi = new Indicator(69, nameof(rsi), "Relative Strength Index", "real", "period", nameof(rsi));
+        public static Indicator round = IndicatorsDefinition[nameof(round)];
 
-        public static Indicator sin = new Indicator(70, nameof(sin), "Vector Sine", "real", String.Empty, nameof(sin));
+        public static Indicator rsi = IndicatorsDefinition[nameof(rsi)];
 
-        public static Indicator sinh = new Indicator(71, nameof(sinh), "Vector Hyperbolic Sine", "real", String.Empty, nameof(sinh));
+        public static Indicator sin = IndicatorsDefinition[nameof(sin)];
 
-        public static Indicator sma = new Indicator(72, nameof(sma), "Simple Moving Average", "real", "period", nameof(sma));
+        public static Indicator sinh = IndicatorsDefinition[nameof(sinh)];
 
-        public static Indicator sqrt = new Indicator(73, nameof(sqrt), "Vector Square Root", "real", String.Empty, nameof(sqrt));
+        public static Indicator sma = IndicatorsDefinition[nameof(sma)];
 
-        public static Indicator stddev =
-            new Indicator(74, nameof(stddev), "Standard Deviation Over Period", "real", "period", nameof(stddev));
+        public static Indicator sqrt = IndicatorsDefinition[nameof(sqrt)];
 
-        public static Indicator stderr =
-            new Indicator(75, nameof(stderr), "Standard Error Over Period", "real", "period", nameof(stderr));
+        public static Indicator stddev = IndicatorsDefinition[nameof(stddev)];
 
-        public static Indicator stoch =
-            new Indicator(76, nameof(stoch), "Stochastic Oscillator", "high|low|close", "%k period|%k slowing period|%d period",
-                "stoch_k|stoch_d");
+        public static Indicator stderr = IndicatorsDefinition[nameof(stderr)];
 
-        public static Indicator stochrsi =
-            new Indicator(77, nameof(stochrsi), "Stochastic RSI", "real", "period", nameof(stochrsi));
+        public static Indicator stoch = IndicatorsDefinition[nameof(stoch)];
 
-        public static Indicator sub = new Indicator(78, nameof(sub), "Vector Subtraction", "real|real", String.Empty, nameof(sub));
+        public static Indicator stochrsi = IndicatorsDefinition[nameof(stochrsi)];
 
-        public static Indicator sum = new Indicator(79, nameof(sum), "Sum Over Period", "real", "period", nameof(sum));
+        public static Indicator sub = IndicatorsDefinition[nameof(sub)];
 
-        public static Indicator tan = new Indicator(80, nameof(tan), "Vector Tangent", "real", String.Empty, nameof(tan));
+        public static Indicator sum = IndicatorsDefinition[nameof(sum)];
 
-        public static Indicator tanh = new Indicator(81, nameof(tanh), "Vector Hyperbolic Tangent", "real", String.Empty, nameof(tanh));
+        public static Indicator tan = IndicatorsDefinition[nameof(tan)];
 
-        public static Indicator tema = new Indicator(82, nameof(tema), "Triple Exponential Moving Average", "real", "period", nameof(tema));
+        public static Indicator tanh = IndicatorsDefinition[nameof(tanh)];
 
-        public static Indicator todeg = new Indicator(83, nameof(todeg), "Vector Degree Conversion", "real", String.Empty, "degrees");
+        public static Indicator tema = IndicatorsDefinition[nameof(tema)];
 
-        public static Indicator torad = new Indicator(84, nameof(torad), "Vector Radian Conversion", "real", String.Empty, "radians");
+        public static Indicator todeg = IndicatorsDefinition[nameof(todeg)];
 
-        public static Indicator tr = new Indicator(85, nameof(tr), "True Range", "high|low|close", String.Empty, nameof(tr));
+        public static Indicator torad = IndicatorsDefinition[nameof(torad)];
 
-        public static Indicator trima = new Indicator(86, nameof(trima), "Triangular Moving Average", "real", "period", nameof(trima));
+        public static Indicator tr = IndicatorsDefinition[nameof(tr)];
 
-        public static Indicator trix = new Indicator(87, nameof(trix), "Trix", "real", "period", nameof(trix));
+        public static Indicator trima = IndicatorsDefinition[nameof(trima)];
 
-        public static Indicator trunc = new Indicator(88, nameof(trunc), "Vector Truncate", "real", String.Empty, nameof(trunc));
+        public static Indicator trix = IndicatorsDefinition[nameof(trix)];
 
-        public static Indicator tsf = new Indicator(89, nameof(tsf), "Time Series Forecast", "real", "period", nameof(tsf));
+        public static Indicator trunc = IndicatorsDefinition[nameof(trunc)];
 
-        public static Indicator typprice =
-            new Indicator(90, nameof(typprice), "Typical Price", "high|low|close", String.Empty, nameof(typprice));
+        public static Indicator tsf = IndicatorsDefinition[nameof(tsf)];
 
-        public static Indicator ultosc =
-            new Indicator(91, nameof(ultosc), "Ultimate Oscillator", "high|low|close", "short period|medium period|long period",
-                nameof(ultosc));
+        public static Indicator typprice = IndicatorsDefinition[nameof(typprice)];
 
-        public static Indicator var = new Indicator(92, nameof(var), "Variance Over Period", "real", "period", nameof(var));
+        public static Indicator ultosc = IndicatorsDefinition[nameof(ultosc)];
 
-        public static Indicator vhf = new Indicator(93, nameof(vhf), "Vertical Horizontal Filter", "real", "period", nameof(vhf));
+        public static Indicator var = IndicatorsDefinition[nameof(var)];
 
-        public static Indicator vidya =
-            new Indicator(94, nameof(vidya), "Variable Index Dynamic Average", "real", "short period|long period|alpha", nameof(vidya));
+        public static Indicator vhf = IndicatorsDefinition[nameof(vhf)];
 
-        public static Indicator volatility =
-            new Indicator(95, nameof(volatility), "Annualized Historical Volatility", "real", "period", nameof(volatility));
+        public static Indicator vidya = IndicatorsDefinition[nameof(vidya)];
 
-        public static Indicator vosc =
-            new Indicator(96, nameof(vosc), "Volume Oscillator", "volume", "short period|long period", nameof(vosc));
+        public static Indicator volatility = IndicatorsDefinition[nameof(volatility)];
 
-        public static Indicator vwma =
-            new Indicator(97, nameof(vwma), "Volume Weighted Moving Average", "close|volume", "period", nameof(vwma));
+        public static Indicator vosc = IndicatorsDefinition[nameof(vosc)];
 
-        public static Indicator wad =
-            new Indicator(98, nameof(wad), "Williams Accumulation/Distribution", "high|low|close", String.Empty, nameof(wad));
+        public static Indicator vwma = IndicatorsDefinition[nameof(vwma)];
 
-        public static Indicator wcprice =
-            new Indicator(99, nameof(wcprice), "Weighted Close Price", "high|low|close", String.Empty, nameof(wcprice));
+        public static Indicator wad = IndicatorsDefinition[nameof(wad)];
 
-        public static Indicator wilders = new Indicator(100, nameof(wilders), "Wilders Smoothing", "real", "period", nameof(wilders));
+        public static Indicator wcprice = IndicatorsDefinition[nameof(wcprice)];
 
-        public static Indicator willr = new Indicator(101, nameof(willr), "Williams %R", "high|low|close", "period", nameof(willr));
+        public static Indicator wilders = IndicatorsDefinition[nameof(wilders)];
 
-        public static Indicator wma = new Indicator(102, nameof(wma), "Weighted Moving Average", "real", "period", nameof(wma));
+        public static Indicator willr = IndicatorsDefinition[nameof(willr)];
 
-        public static Indicator zlema =
-            new Indicator(103, nameof(zlema), "Zero-Lag Exponential Moving Average", "real", "period", nameof(zlema));
+        public static Indicator wma = IndicatorsDefinition[nameof(wma)];
+
+        public static Indicator zlema = IndicatorsDefinition[nameof(zlema)];
     }
 }

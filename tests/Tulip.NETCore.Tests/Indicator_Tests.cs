@@ -6,27 +6,20 @@ using Xunit;
 namespace Tulip.NETCore.Tests
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class Indicator_Tests : IClassFixture<IndicatorsMapFixture>
+    public class Indicator_Tests
     {
-        private readonly IndicatorsMapFixture _fixture;
-
-        public Indicator_Tests(IndicatorsMapFixture fixture)
-        {
-            _fixture = fixture;
-        }
-
         [SkippableTheory]
         [JsonFileData("DataSets/untest.json", typeof(double), "_")]
         [JsonFileData("DataSets/atoz.json", typeof(double), "_")]
         [JsonFileData("DataSets/extra.json", typeof(double), "_")]
-        public void Should_Return_CorrectOutput_With_OKStatus_For_DoubleInput(TestDataModel<double> model, string fileName)
+        public static void Should_Return_CorrectOutput_With_OKStatus_For_DoubleInput(TestDataModel<double> model, string fileName)
         {
             Skip.If(model.Skip, "Test has been skipped in configuration");
 
             const double equalityTolerance = 0.001d;
 
-            _fixture.IndicatorsMap.ShouldContainKey(model.Name, $"Cannot find definition for '{model.Name}");
-            var indicator = _fixture.IndicatorsMap[model.Name];
+            Indicators.IndicatorsDefinition.ShouldContainKey(model.Name, $"Cannot find definition for '{model.Name}");
+            var indicator = Indicators.IndicatorsDefinition[model.Name];
 
             model.Options.Length.ShouldBe(indicator.Options.Length, "Number of options must match the definition");
             var inputOffset = indicator.Start(model.Options);
@@ -55,14 +48,14 @@ namespace Tulip.NETCore.Tests
         [JsonFileData("DataSets/untest.json", typeof(decimal), "_")]
         [JsonFileData("DataSets/atoz.json", typeof(decimal), "_")]
         [JsonFileData("DataSets/extra.json", typeof(decimal), "_")]
-        public void Should_Return_CorrectOutput_With_OKStatus_For_DecimalInput(TestDataModel<decimal> model, string fileName)
+        public static void Should_Return_CorrectOutput_With_OKStatus_For_DecimalInput(TestDataModel<decimal> model, string fileName)
         {
             Skip.If(model.Skip, "Test has been skipped in configuration");
 
             const decimal equalityTolerance = 0.001m;
 
-            _fixture.IndicatorsMap.ShouldContainKey(model.Name, $"Cannot find definition for '{model.Name}");
-            var indicator = _fixture.IndicatorsMap[model.Name];
+            Indicators.IndicatorsDefinition.ShouldContainKey(model.Name, $"Cannot find definition for '{model.Name}");
+            var indicator = Indicators.IndicatorsDefinition[model.Name];
 
             model.Options.Length.ShouldBe(indicator.Options.Length, "Number of options must match the definition");
             var inputOffset = indicator.Start(model.Options);

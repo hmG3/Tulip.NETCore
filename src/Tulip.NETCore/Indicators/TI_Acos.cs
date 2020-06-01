@@ -6,7 +6,7 @@ namespace Tulip
     {
         private static int AcosStart(double[] options) => 0;
 
-        public static int AcosStart(decimal[] options) => 0;
+        private static int AcosStart(decimal[] options) => 0;
 
         private static int Acos(int size, double[][] inputs, double[] options, double[][] outputs)
         {

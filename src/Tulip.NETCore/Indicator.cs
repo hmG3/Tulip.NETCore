@@ -4,11 +4,8 @@ namespace Tulip
 {
     public sealed class Indicator
     {
-        private readonly byte _index;
-
-        internal Indicator(byte index, string name, string fullName, string inputs, string options, string outputs)
+        internal Indicator(string name, string fullName, string inputs, string options, string outputs)
         {
-            _index = index;
             Name = name;
             FullName = fullName;
             Inputs = inputs.Split('|');
@@ -16,7 +13,7 @@ namespace Tulip
             Outputs = outputs.Split('|');
         }
 
-        public string Name { get; }
+        private string Name { get; }
 
         public string FullName { get; }
 
@@ -26,12 +23,12 @@ namespace Tulip
 
         public string[] Outputs { get; }
 
-        public int Start(double[] options) => Tinet.IndicatorStart(_index, options);
+        public int Start(double[] options) => Tinet.IndicatorStart(Name, options);
 
-        public int Start(decimal[] options) => Tinet.IndicatorStart(_index, options);
+        public int Start(decimal[] options) => Tinet.IndicatorStart(Name, options);
 
-        public int Run(double[][] inputs, double[] options, double[][] outputs) => Tinet.IndicatorRun(_index, inputs, options, outputs);
+        public int Run(double[][] inputs, double[] options, double[][] outputs) => Tinet.IndicatorRun(Name, inputs, options, outputs);
 
-        public int Run(decimal[][] inputs, decimal[] options, decimal[][] outputs) => Tinet.IndicatorRun(_index, inputs, options, outputs);
+        public int Run(decimal[][] inputs, decimal[] options, decimal[][] outputs) => Tinet.IndicatorRun(Name, inputs, options, outputs);
     }
 }

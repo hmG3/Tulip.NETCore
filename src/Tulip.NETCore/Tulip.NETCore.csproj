@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Tulip</RootNamespace>
+    <Nullable>enable</Nullable>
     <Product>Tulip.NETCore</Product>
     <Description>A pure port to .NET Core (C#) of Tulip Indicators</Description>
     <Authors>Anatoliy Siryi</Authors>

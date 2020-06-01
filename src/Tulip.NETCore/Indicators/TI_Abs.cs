@@ -15,7 +15,7 @@ namespace Tulip
             return TI_OKAY;
         }
 
-        public static int Abs(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+        private static int Abs(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
             Simple1(size, inputs[0], outputs[0], Math.Abs);
 
