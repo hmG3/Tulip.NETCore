@@ -10,9 +10,9 @@ namespace Tulip
 
         private static int Stoch(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            int kPeriod = (int) options[0];
-            int kSlow = (int) options[1];
-            int dPeriod = (int) options[2];
+            var kPeriod = (int) options[0];
+            var kSlow = (int) options[1];
+            var dPeriod = (int) options[2];
 
             if (kPeriod < 1 || kSlow < 1 || dPeriod < 1)
             {
@@ -24,11 +24,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] close = inputs[2];
-            double[] stoch = outputs[0];
-            double[] stochMa = outputs[1];
+            var (high, low, close) = inputs;
+            var (stoch, stochMa) = outputs;
 
             double kPer = 1.0 / kSlow;
             double dPer = 1.0 / dPeriod;
@@ -118,9 +115,9 @@ namespace Tulip
 
         private static int Stoch(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            int kPeriod = (int) options[0];
-            int kSlow = (int) options[1];
-            int dPeriod = (int) options[2];
+            var kPeriod = (int) options[0];
+            var kSlow = (int) options[1];
+            var dPeriod = (int) options[2];
 
             if (kPeriod < 1 || kSlow < 1 || dPeriod < 1)
             {
@@ -132,11 +129,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] close = inputs[2];
-            decimal[] stoch = outputs[0];
-            decimal[] stochMa = outputs[1];
+            var (high, low, close) = inputs;
+            var (stoch, stochMa) = outputs;
 
             decimal kPer = Decimal.One / kSlow;
             decimal dPer = Decimal.One / dPeriod;

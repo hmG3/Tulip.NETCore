@@ -8,9 +8,8 @@ namespace Tulip
 
         private static int MedPrice(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] output = outputs[0];
+            var (high, low) = inputs;
+            var output = outputs[0];
 
             for (var i = 0; i < size; ++i)
             {
@@ -22,9 +21,8 @@ namespace Tulip
 
         private static int MedPrice(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] output = outputs[0];
+            var (high, low) = inputs;
+            var output = outputs[0];
 
             for (var i = 0; i < size; ++i)
             {

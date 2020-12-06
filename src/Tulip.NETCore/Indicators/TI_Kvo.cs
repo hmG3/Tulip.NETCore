@@ -10,8 +10,8 @@ namespace Tulip
 
         private static int Kvo(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
 
             if (shortPeriod < 1 || longPeriod < shortPeriod)
             {
@@ -23,14 +23,11 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] close = inputs[2];
-            double[] volume = inputs[3];
+            var (high, low, close, volume) = inputs;
+            var output = outputs[0];
 
             double shortPer = 2.0 / (shortPeriod + 1);
             double longPer = 2.0 / (longPeriod + 1);
-            double[] output = outputs[0];
             double cm = default;
             double prevHlc = high[0] + low[0] + close[0];
             var trend = -1;
@@ -74,8 +71,8 @@ namespace Tulip
 
         private static int Kvo(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
 
             if (shortPeriod < 1 || longPeriod < shortPeriod)
             {
@@ -87,14 +84,11 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] close = inputs[2];
-            decimal[] volume = inputs[3];
+            var (high, low, close, volume) = inputs;
+            var output = outputs[0];
 
             decimal shortPer = 2m / (shortPeriod + 1);
             decimal longPer = 2m / (longPeriod + 1);
-            decimal[] output = outputs[0];
             decimal cm = default;
             decimal prevHlc = high[0] + low[0] + close[0];
             var trend = -1;

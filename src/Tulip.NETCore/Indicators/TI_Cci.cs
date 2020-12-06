@@ -22,10 +22,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] close = inputs[2];
-            double[] output = outputs[0];
+            var (high, low, close) = inputs;
+            var output = outputs[0];
 
             double scale = 1.0 / period;
             var sum = BufferDoubleFactory(period);
@@ -67,10 +65,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] close = inputs[2];
-            decimal[] output = outputs[0];
+            var (high, low, close) = inputs;
+            var output = outputs[0];
 
             decimal scale = Decimal.One / period;
             var sum = BufferDecimalFactory(period);

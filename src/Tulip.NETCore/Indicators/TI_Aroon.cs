@@ -20,10 +20,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] aDown = outputs[0];
-            double[] aUp = outputs[1];
+            var (high, low) = inputs;
+            var (aDown, aUp) = outputs;
 
             double scale = 100.0 / period;
             var maxi = -1;
@@ -105,10 +103,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] aDown = outputs[0];
-            decimal[] aUp = outputs[1];
+            var (high, low) = inputs;
+            var (aDown, aUp) = outputs;
 
             decimal scale = 100m / period;
             var maxi = -1;

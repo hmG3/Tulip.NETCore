@@ -13,10 +13,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] volume = inputs[2];
-            double[] output = outputs[0];
+            var (high, low, volume) = inputs;
+            var output = outputs[0];
 
             int outputIndex = default;
             for (var i = 0; i < size; ++i)
@@ -34,10 +32,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] volume = inputs[2];
-            decimal[] output = outputs[0];
+            var (high, low, volume) = inputs;
+            var output = outputs[0];
 
             int outputIndex = default;
             for (var i = 0; i < size; ++i)

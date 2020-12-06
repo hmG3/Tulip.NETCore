@@ -22,9 +22,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] sine = outputs[0];
-            double[] lead = outputs[1];
+            var input = inputs[0];
+            var (sine, lead) = outputs;
 
             const double tpi = 2 * Math.PI;
             int sineIndex = default;
@@ -87,9 +86,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] sine = outputs[0];
-            decimal[] lead = outputs[1];
+            var input = inputs[0];
+            var (sine, lead) = outputs;
 
             const decimal tpi = 2m * DecimalMath.PI;
             int sineIndex = default;

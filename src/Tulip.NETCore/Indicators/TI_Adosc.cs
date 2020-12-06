@@ -23,11 +23,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] close = inputs[2];
-            double[] volume = inputs[3];
-            double[] output = outputs[0];
+            var (high, low, close, volume) = inputs;
+            var output = outputs[0];
 
             int start = longPeriod - 1;
             double shortPer = 2.0 / (shortPeriod + 1);
@@ -79,11 +76,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] close = inputs[2];
-            decimal[] volume = inputs[3];
-            decimal[] output = outputs[0];
+            var (high, low, close, volume) = inputs;
+            var output = outputs[0];
 
             int start = longPeriod - 1;
             decimal shortPer = 2m / (shortPeriod + 1);

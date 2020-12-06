@@ -22,8 +22,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             double scale = 1.0 / period;
             double sum = default;
@@ -67,8 +67,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             decimal scale = Decimal.One / period;
             decimal sum = default;

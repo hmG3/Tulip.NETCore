@@ -20,8 +20,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             double per = 2.0 / (period + 1);
             double val = input[0];
@@ -50,8 +50,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             decimal per = 2m / (period + 1);
             decimal val = input[0];

@@ -22,8 +22,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             // HMA(input, N) = WMA((2 * WMA(input, N/2) - WMA(input, N)), sqrt(N))
             // Need to do three WMAs, with periods N, N/2, and sqrt N.
@@ -106,8 +106,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             // HMA(input, N) = WMA((2 * WMA(input, N/2) - WMA(input, N)), sqrt(N))
             // Need to do three WMAs, with periods N, N/2, and sqrt N.

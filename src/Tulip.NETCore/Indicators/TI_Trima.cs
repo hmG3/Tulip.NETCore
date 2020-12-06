@@ -27,8 +27,8 @@ namespace Tulip
                 return Sma(size, inputs, options, outputs);
             }
 
-            double[] input = inputs[0];
-            double[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             double weightSum = default; // Weighted sum of previous numbers, spans one period back.
             double leadSum = default; // Flat sum of most recent numbers.
@@ -111,8 +111,8 @@ namespace Tulip
                 return Sma(size, inputs, options, outputs);
             }
 
-            decimal[] input = inputs[0];
-            decimal[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             decimal weightSum = default; // Weighted sum of previous numbers, spans one period back.
             decimal leadSum = default; // Flat sum of most recent numbers.

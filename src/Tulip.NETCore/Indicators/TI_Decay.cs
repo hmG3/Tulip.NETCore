@@ -10,8 +10,8 @@ namespace Tulip
 
         private static int Decay(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            double[] input = inputs[0];
-            double[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
             var period = (int) options[0];
 
             double scale = 1.0 / period;
@@ -28,8 +28,8 @@ namespace Tulip
 
         private static int Decay(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            decimal[] input = inputs[0];
-            decimal[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
             var period = (int) options[0];
 
             decimal scale = Decimal.One / period;

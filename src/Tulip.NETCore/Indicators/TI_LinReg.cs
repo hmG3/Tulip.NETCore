@@ -22,8 +22,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             double x = default; // Sum of Xs.
             double x2 = default; // Sum of square of Xs.
@@ -71,8 +71,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             decimal x = default; // Sum of Xs.
             decimal x2 = default; // Sum of square of Xs.

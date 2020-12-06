@@ -18,9 +18,9 @@ namespace Tulip
 
         private static int Macd(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
-            int signalPeriod = (int) options[2];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
+            var signalPeriod = (int) options[2];
 
             if (shortPeriod < 1 || longPeriod < 2 || longPeriod < shortPeriod || signalPeriod < 1)
             {
@@ -32,10 +32,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] macd = outputs[0];
-            double[] signal = outputs[1];
-            double[] hist = outputs[2];
+            var input = inputs[0];
+            var (macd, signal, hist) = outputs;
 
             double shortPer = 2.0 / (shortPeriod + 1);
             double longPer = 2.0 / (longPeriod + 1);
@@ -77,9 +75,9 @@ namespace Tulip
 
         private static int Macd(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
-            int signalPeriod = (int) options[2];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
+            var signalPeriod = (int) options[2];
 
             if (shortPeriod < 1 || longPeriod < 2 || longPeriod < shortPeriod || signalPeriod < 1)
             {
@@ -91,10 +89,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] macd = outputs[0];
-            decimal[] signal = outputs[1];
-            decimal[] hist = outputs[2];
+            var input = inputs[0];
+            var (macd, signal, hist) = outputs;
 
             decimal shortPer = 2m / (shortPeriod + 1);
             decimal longPer = 2m / (longPeriod + 1);

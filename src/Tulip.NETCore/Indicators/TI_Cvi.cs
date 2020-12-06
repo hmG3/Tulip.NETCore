@@ -20,9 +20,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] output = outputs[0];
+            var (high, low) = inputs;
+            var output = outputs[0];
 
             double per = 2.0 / (period + 1);
             var lag = BufferDoubleFactory(period);
@@ -59,9 +58,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] output = outputs[0];
+            var (high, low) = inputs;
+            var output = outputs[0];
 
             decimal per = 2m / (period + 1);
             var lag = BufferDecimalFactory(period);

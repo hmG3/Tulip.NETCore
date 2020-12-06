@@ -13,9 +13,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] close = inputs[0];
-            double[] volume = inputs[1];
-            double[] output = outputs[0];
+            var (close, volume) = inputs;
+            var output = outputs[0];
 
             double pvi = 1000.0;
             int outputIndex = default;
@@ -40,9 +39,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] close = inputs[0];
-            decimal[] volume = inputs[1];
-            decimal[] output = outputs[0];
+            var (close, volume) = inputs;
+            var output = outputs[0];
 
             decimal pvi = 1000m;
             int outputIndex = default;

@@ -8,8 +8,8 @@ namespace Tulip
 
         private static int Ppo(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
 
             if (shortPeriod < 1 || longPeriod < 2 || longPeriod < shortPeriod)
             {
@@ -21,8 +21,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] ppo = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             double shortPer = 2.0 / (shortPeriod + 1);
             double longPer = 2.0 / (longPeriod + 1);
@@ -34,7 +34,7 @@ namespace Tulip
                 shortEma = (input[i] - shortEma) * shortPer + shortEma;
                 longEma = (input[i] - longEma) * longPer + longEma;
                 double outEma = 100.0 * (shortEma - longEma) / longEma;
-                ppo[ppoIndex++] = outEma;
+                output[ppoIndex++] = outEma;
             }
 
             return TI_OKAY;
@@ -42,8 +42,8 @@ namespace Tulip
 
         private static int Ppo(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
 
             if (shortPeriod < 1 || longPeriod < 2 || longPeriod < shortPeriod)
             {
@@ -55,8 +55,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] ppo = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             decimal shortPer = 2m / (shortPeriod + 1);
             decimal longPer = 2m / (longPeriod + 1);
@@ -68,7 +68,7 @@ namespace Tulip
                 shortEma = (input[i] - shortEma) * shortPer + shortEma;
                 longEma = (input[i] - longEma) * longPer + longEma;
                 decimal outEma = 100m * (shortEma - longEma) / longEma;
-                ppo[ppoIndex++] = outEma;
+                output[ppoIndex++] = outEma;
             }
 
             return TI_OKAY;

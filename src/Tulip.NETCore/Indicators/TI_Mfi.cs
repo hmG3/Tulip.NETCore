@@ -22,11 +22,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] close = inputs[2];
-            double[] volume = inputs[3];
-            double[] output = outputs[0];
+            var (high, low, close, volume) = inputs;
+            var output = outputs[0];
 
             double yTyp = (high[0] + low[0] + close[0]) * (1.0 / 3.0);
             var up = BufferDoubleFactory(period);
@@ -76,11 +73,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] close = inputs[2];
-            decimal[] volume = inputs[3];
-            decimal[] output = outputs[0];
+            var (high, low, close, volume) = inputs;
+            var output = outputs[0];
 
             decimal yTyp = (high[0] + low[0] + close[0]) * (Decimal.One / 3m);
             var up = BufferDecimalFactory(period);

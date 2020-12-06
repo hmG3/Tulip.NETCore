@@ -10,8 +10,8 @@ namespace Tulip
 
         private static int Vosc(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
 
             if (shortPeriod < 1 || longPeriod < shortPeriod)
             {
@@ -23,8 +23,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             double shortSum = default;
             double longSum = default;
@@ -62,8 +62,8 @@ namespace Tulip
 
         private static int Vosc(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
 
             if (shortPeriod < 1 || longPeriod < shortPeriod)
             {
@@ -75,8 +75,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             decimal shortSum = default;
             decimal longSum = default;

@@ -8,10 +8,8 @@ namespace Tulip
 
         private static int Tr(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] close = inputs[2];
-            double[] output = outputs[0];
+            var (high, low, close) = inputs;
+            var output = outputs[0];
 
             output[0] = high[0] - low[0];
             for (var i = 1; i < size; ++i)
@@ -25,10 +23,8 @@ namespace Tulip
 
         private static int Tr(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] close = inputs[2];
-            decimal[] output = outputs[0];
+            var (high, low, close) = inputs;
+            var output = outputs[0];
 
             output[0] = high[0] - low[0];
             for (var i = 1; i < size; ++i)

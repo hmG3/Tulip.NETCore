@@ -8,9 +8,8 @@ namespace Tulip
 
         private static int Obv(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            double[] close = inputs[0];
-            double[] volume = inputs[1];
-            double[] output = outputs[0];
+            var (close, volume) = inputs;
+            var output = outputs[0];
 
             double prev = close[0];
             double sum = default;
@@ -36,9 +35,8 @@ namespace Tulip
 
         private static int Obv(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            decimal[] close = inputs[0];
-            decimal[] volume = inputs[1];
-            decimal[] output = outputs[0];
+            var (close, volume) = inputs;
+            var output = outputs[0];
 
             decimal prev = close[0];
             decimal sum = default;

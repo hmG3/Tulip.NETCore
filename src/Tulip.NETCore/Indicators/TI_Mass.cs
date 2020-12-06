@@ -6,14 +6,14 @@ namespace Tulip
     {
         private static int MassStart(double[] options)
         {
-            int sumP = (int) options[0] - 1;
+            var sumP = (int) options[0] - 1;
             // The ema uses a hard-coded period of 9. (9-1)*2 = 16
             return 16 + sumP;
         }
 
         private static int MassStart(decimal[] options)
         {
-            int sumP = (int) options[0] - 1;
+            var sumP = (int) options[0] - 1;
             // The ema uses a hard-coded period of 9. (9-1)*2 = 16
             return 16 + sumP;
         }
@@ -32,9 +32,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] output = outputs[0];
+            var (high, low) = inputs;
+            var output = outputs[0];
 
             // mass uses a hard-coded 9 period for the ema
             double per = 2.0 / (9 + 1);
@@ -90,9 +89,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] output = outputs[0];
+            var (high, low) = inputs;
+            var output = outputs[0];
 
             // mass uses a hard-coded 9 period for the ema
             decimal per = 2m / (9 + 1);

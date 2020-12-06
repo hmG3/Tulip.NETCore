@@ -10,8 +10,8 @@ namespace Tulip
 
         private static int Psar(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            double accelStep = options[0];
-            double accelMax = options[1];
+            var accelStep = options[0];
+            var accelMax = options[1];
 
             if (accelStep <= 0.0 || accelMax <= accelStep)
             {
@@ -23,9 +23,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] output = outputs[0];
+            var (high, low) = inputs;
+            var output = outputs[0];
 
             // Try to choose if we start as short or long. There is really no right answer here.
             bool lng = high[0] + low[0] <= high[1] + low[1];
@@ -106,8 +105,8 @@ namespace Tulip
 
         private static int Psar(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            decimal accelStep = options[0];
-            decimal accelMax = options[1];
+            var accelStep = options[0];
+            var accelMax = options[1];
 
             if (accelStep <= Decimal.Zero || accelMax <= accelStep)
             {
@@ -119,9 +118,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] output = outputs[0];
+            var (high, low) = inputs;
+            var output = outputs[0];
 
             // Try to choose if we start as short or long. There is really no right answer here.
             bool lng = high[0] + low[0] <= high[1] + low[1];

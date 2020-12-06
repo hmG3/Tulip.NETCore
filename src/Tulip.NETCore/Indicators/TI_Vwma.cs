@@ -20,9 +20,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] volume = inputs[1];
-            double[] output = outputs[0];
+            var (input, volume) = inputs;
+            var output = outputs[0];
 
             double sum = default;
             double vSum = default;
@@ -61,9 +60,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] volume = inputs[1];
-            decimal[] output = outputs[0];
+            var (input, volume) = inputs;
+            var output = outputs[0];
 
             decimal sum = default;
             decimal vSum = default;

@@ -10,10 +10,10 @@ namespace Tulip
 
         private static int Edecay(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            double[] input = inputs[0];
-            double[] output = outputs[0];
-
+            var input = inputs[0];
+            var output = outputs[0];
             var period = (int) options[0];
+
             double scale = 1.0 - 1.0 / period;
             int outputIndex = default;
             output[outputIndex++] = input[0];
@@ -28,10 +28,10 @@ namespace Tulip
 
         private static int Edecay(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            decimal[] input = inputs[0];
-            decimal[] output = outputs[0];
-
+            var input = inputs[0];
+            var output = outputs[0];
             var period = (int) options[0];
+
             decimal scale = Decimal.One - Decimal.One / period;
             int outputIndex = default;
             output[outputIndex++] = input[0];

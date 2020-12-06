@@ -8,28 +8,14 @@ namespace Tulip
 
         private static int Sub(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            double[] in1 = inputs[0];
-            double[] in2 = inputs[1];
-            double[] output = outputs[0];
-
-            for (var i = 0; i < size; ++i)
-            {
-                output[i] = in1[i] - in2[i];
-            }
+            Simple2(size, inputs[0], inputs[1], outputs[0], (d1, d2) => d1 - d2);
 
             return TI_OKAY;
         }
 
         private static int Sub(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            decimal[] in1 = inputs[0];
-            decimal[] in2 = inputs[1];
-            decimal[] output = outputs[0];
-
-            for (var i = 0; i < size; ++i)
-            {
-                output[i] = in1[i] - in2[i];
-            }
+            Simple2(size, inputs[0], inputs[1], outputs[0], (d1, d2) => d1 - d2);
 
             return TI_OKAY;
         }

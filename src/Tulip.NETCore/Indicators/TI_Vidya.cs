@@ -10,9 +10,9 @@ namespace Tulip
 
         private static int Vidya(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
-            double alpha = options[2];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
+            var alpha = options[2];
 
             if (shortPeriod < 1 || longPeriod < shortPeriod || longPeriod < 2 || alpha < 0.0 || alpha > 1.0)
             {
@@ -24,8 +24,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             double shortSum = default;
             double shortSum2 = default;
@@ -86,9 +86,9 @@ namespace Tulip
 
         private static int Vidya(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int longPeriod = (int) options[1];
-            decimal alpha = options[2];
+            var shortPeriod = (int) options[0];
+            var longPeriod = (int) options[1];
+            var alpha = options[2];
 
             if (shortPeriod < 1 || longPeriod < shortPeriod || longPeriod < 2 || alpha < Decimal.Zero || alpha > Decimal.One)
             {
@@ -100,8 +100,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] output = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             decimal shortSum = default;
             decimal shortSum2 = default;

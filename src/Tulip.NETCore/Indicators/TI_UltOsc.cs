@@ -10,9 +10,9 @@ namespace Tulip
 
         private static int UltOsc(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int mediumPeriod = (int) options[1];
-            int longPeriod = (int) options[2];
+            var shortPeriod = (int) options[0];
+            var mediumPeriod = (int) options[1];
+            var longPeriod = (int) options[2];
 
             if (shortPeriod < 1 || mediumPeriod < shortPeriod || longPeriod < mediumPeriod)
             {
@@ -24,10 +24,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] close = inputs[2];
-            double[] output = outputs[0];
+            var (high, low, close) = inputs;
+            var output = outputs[0];
 
             var bpBuf = BufferDoubleFactory(longPeriod);
             var rBuf = BufferDoubleFactory(longPeriod);
@@ -89,9 +87,9 @@ namespace Tulip
 
         private static int UltOsc(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            int shortPeriod = (int) options[0];
-            int mediumPeriod = (int) options[1];
-            int longPeriod = (int) options[2];
+            var shortPeriod = (int) options[0];
+            var mediumPeriod = (int) options[1];
+            var longPeriod = (int) options[2];
 
             if (shortPeriod < 1 || mediumPeriod < shortPeriod || longPeriod < mediumPeriod)
             {
@@ -103,10 +101,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] close = inputs[2];
-            decimal[] output = outputs[0];
+            var (high, low, close) = inputs;
+            var output = outputs[0];
 
             var bpBuf = BufferDecimalFactory(longPeriod);
             var rBuf = BufferDecimalFactory(longPeriod);

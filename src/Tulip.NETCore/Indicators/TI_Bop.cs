@@ -10,11 +10,8 @@ namespace Tulip
 
         private static int Bop(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            double[] open = inputs[0];
-            double[] high = inputs[1];
-            double[] low = inputs[2];
-            double[] close = inputs[3];
-            double[] output = outputs[0];
+            var (open, high, low, close) = inputs;
+            var output = outputs[0];
 
             for (var i = 0; i < size; ++i)
             {
@@ -27,11 +24,8 @@ namespace Tulip
 
         private static int Bop(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            decimal[] open = inputs[0];
-            decimal[] high = inputs[1];
-            decimal[] low = inputs[2];
-            decimal[] close = inputs[3];
-            decimal[] output = outputs[0];
+            var (open, high, low, close) = inputs;
+            var output = outputs[0];
 
             for (var i = 0; i < size; ++i)
             {

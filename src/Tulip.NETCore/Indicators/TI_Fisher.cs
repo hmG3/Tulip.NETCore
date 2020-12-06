@@ -22,10 +22,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] fisher = outputs[0];
-            double[] signal = outputs[1];
+            var (high, low) = inputs;
+            var (fisher, signal) = outputs;
 
             var maxi = -1;
             var mini = -1;
@@ -122,10 +120,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] fisher = outputs[0];
-            decimal[] signal = outputs[1];
+            var (high, low) = inputs;
+            var (fisher, signal) = outputs;
 
             var maxi = -1;
             var mini = -1;

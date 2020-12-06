@@ -8,9 +8,8 @@ namespace Tulip
 
         private static int Crossany(int size, double[][] inputs, double[] options, double[][] outputs)
         {
-            double[] a = inputs[0];
-            double[] b = inputs[1];
-            double[] output = outputs[0];
+            var (a, b) = inputs;
+            var output = outputs[0];
 
             int outputIndex = default;
             for (var i = 1; i < size; ++i)
@@ -23,9 +22,8 @@ namespace Tulip
 
         private static int Crossany(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            decimal[] a = inputs[0];
-            decimal[] b = inputs[1];
-            decimal[] output = outputs[0];
+            var (a, b) = inputs;
+            var output = outputs[0];
 
             int outputIndex = default;
             for (var i = 1; i < size; ++i)

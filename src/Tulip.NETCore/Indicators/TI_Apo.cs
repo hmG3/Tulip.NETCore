@@ -21,8 +21,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] apo = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             double shortPer = 2.0 / (shortPeriod + 1);
             double longPer = 2.0 / (longPeriod + 1);
@@ -33,7 +33,7 @@ namespace Tulip
             {
                 shortEma = (input[i] - shortEma) * shortPer + shortEma;
                 longEma = (input[i] - longEma) * longPer + longEma;
-                apo[apoIndex++] = shortEma - longEma;
+                output[apoIndex++] = shortEma - longEma;
             }
 
             return TI_OKAY;
@@ -54,8 +54,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] apo = outputs[0];
+            var input = inputs[0];
+            var output = outputs[0];
 
             decimal shortPer = 2m / (shortPeriod + 1);
             decimal longPer = 2m / (longPeriod + 1);
@@ -66,7 +66,7 @@ namespace Tulip
             {
                 shortEma = (input[i] - shortEma) * shortPer + shortEma;
                 longEma = (input[i] - longEma) * longPer + longEma;
-                apo[apoIndex++] = shortEma - longEma;
+                output[apoIndex++] = shortEma - longEma;
             }
 
             return TI_OKAY;

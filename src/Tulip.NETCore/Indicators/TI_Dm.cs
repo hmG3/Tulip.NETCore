@@ -22,10 +22,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] high = inputs[0];
-            double[] low = inputs[1];
-            double[] plusDm = outputs[0];
-            double[] minusDm = outputs[1];
+            var (high, low) = inputs;
+            var (plusDm, minusDm) = outputs;
 
             double dmUp = default;
             double dmDown = default;
@@ -69,10 +67,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] high = inputs[0];
-            decimal[] low = inputs[1];
-            decimal[] plusDm = outputs[0];
-            decimal[] minusDm = outputs[1];
+            var (high, low) = inputs;
+            var (plusDm, minusDm) = outputs;
 
             decimal dmUp = default;
             decimal dmDown = default;

@@ -22,10 +22,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            double[] input = inputs[0];
-            double[] lower = outputs[0];
-            double[] middle = outputs[1];
-            double[] upper = outputs[2];
+            var input = inputs[0];
+            var (lower, middle, upper) = outputs;
 
             double sum = default;
             double sum2 = default;
@@ -77,10 +75,8 @@ namespace Tulip
                 return TI_OKAY;
             }
 
-            decimal[] input = inputs[0];
-            decimal[] lower = outputs[0];
-            decimal[] middle = outputs[1];
-            decimal[] upper = outputs[2];
+            var input = inputs[0];
+            var (lower, middle, upper) = outputs;
 
             decimal sum = default;
             decimal sum2 = default;
