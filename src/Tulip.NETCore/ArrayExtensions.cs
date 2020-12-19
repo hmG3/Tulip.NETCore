@@ -1,6 +1,6 @@
 namespace Tulip
 {
-    public static class ArrayExtensions
+    internal static class ArrayExtensions
     {
         public static void Deconstruct<T>(this T[] array, out T first, out T second)
         {

@@ -11,6 +11,7 @@ namespace Tulip
         private static int Bbands(int size, double[][] inputs, double[] options, double[][] outputs)
         {
             var period = (int) options[0];
+            var stddev = options[1];
 
             if (period < 1)
             {
@@ -33,7 +34,6 @@ namespace Tulip
                 sum2 += input[i] * input[i];
             }
 
-            double stddev = options[1];
             double scale = 1.0 / period;
             double sd = Math.Sqrt(sum2 * scale - sum * scale * (sum * scale));
 
@@ -64,6 +64,7 @@ namespace Tulip
         private static int Bbands(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
             var period = (int) options[0];
+            var stddev = options[1];
 
             if (period < 1)
             {
@@ -86,7 +87,6 @@ namespace Tulip
                 sum2 += input[i] * input[i];
             }
 
-            decimal stddev = options[1];
             decimal scale = Decimal.One / period;
             decimal sd = DecimalMath.Sqrt(sum2 * scale - sum * scale * sum * scale);
 

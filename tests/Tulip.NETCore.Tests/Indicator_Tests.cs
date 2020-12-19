@@ -12,7 +12,9 @@ namespace Tulip.NETCore.Tests
         [JsonFileData("DataSets/untest.json", typeof(double), "_")]
         [JsonFileData("DataSets/atoz.json", typeof(double), "_")]
         [JsonFileData("DataSets/extra.json", typeof(double), "_")]
+#pragma warning disable xUnit1026
         public static void Should_Return_CorrectOutput_With_OKStatus_For_DoubleInput(TestDataModel<double> model, string fileName)
+#pragma warning restore xUnit1026
         {
             Skip.If(model.Skip, "Test has been skipped in configuration");
 
@@ -35,12 +37,14 @@ namespace Tulip.NETCore.Tests
             }
 
             var returnCode = indicator.Run(model.Inputs, model.Options, resultOutput);
-            returnCode.ShouldBe(0, "Function should complete with success status code TI_OK(0)");
+            returnCode.ShouldBe(0, "Indicator should complete with success status code TI_OK(0)");
 
             for (var i = 0; i < resultOutput.Length; i++)
             {
-                resultOutput[i].Length.ShouldBe(model.Outputs[i].Length, "Expected and calculated length of the output arrays should be equal");
-                resultOutput[i].ShouldBe(model.Outputs[i], equalityTolerance);
+                resultOutput[i].Length.ShouldBe(model.Outputs[i].Length,
+                    $"Expected and calculated length of the output values should be equal for output {i + 1}");
+                resultOutput[i].ShouldBe(model.Outputs[i], equalityTolerance,
+                    $"Calculated values should be within expected for output {i + 1}");
             }
         }
 
@@ -48,7 +52,9 @@ namespace Tulip.NETCore.Tests
         [JsonFileData("DataSets/untest.json", typeof(decimal), "_")]
         [JsonFileData("DataSets/atoz.json", typeof(decimal), "_")]
         [JsonFileData("DataSets/extra.json", typeof(decimal), "_")]
+#pragma warning disable xUnit1026
         public static void Should_Return_CorrectOutput_With_OKStatus_For_DecimalInput(TestDataModel<decimal> model, string fileName)
+#pragma warning disable xUnit1026
         {
             Skip.If(model.Skip, "Test has been skipped in configuration");
 
@@ -71,12 +77,14 @@ namespace Tulip.NETCore.Tests
             }
 
             var returnCode = indicator.Run(model.Inputs, model.Options, resultOutput);
-            returnCode.ShouldBe(0, "Function should complete with success status code TI_OK(0)");
+            returnCode.ShouldBe(0, "Indicator should complete with success status code TI_OK(0)");
 
             for (var i = 0; i < resultOutput.Length; i++)
             {
-                resultOutput[i].Length.ShouldBe(model.Outputs[i].Length, "Expected and calculated length of the output arrays should be equal");
-                resultOutput[i].ShouldBe(model.Outputs[i], equalityTolerance);
+                resultOutput[i].Length.ShouldBe(model.Outputs[i].Length,
+                    $"Expected and calculated length of the output values should be equal for output {i + 1}");
+                resultOutput[i].ShouldBe(model.Outputs[i], equalityTolerance,
+                    $"Calculated values should be within expected for output {i + 1}");
             }
         }
     }
