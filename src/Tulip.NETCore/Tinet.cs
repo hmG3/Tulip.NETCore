@@ -166,7 +166,7 @@ namespace Tulip
             }
         }
 
-        private static void Simple1(int size, double[] input, double[] output, Func<double, double> op)
+        private static void Simple1<T>(int size, T[] input, T[] output, Func<T, T> op) where T : IComparable<T>
         {
             for (var i = 0; i < size; ++i)
             {
@@ -174,15 +174,7 @@ namespace Tulip
             }
         }
 
-        private static void Simple1(int size, decimal[] input, decimal[] output, Func<decimal, decimal> op)
-        {
-            for (var i = 0; i < size; ++i)
-            {
-                output[i] = op(input[i]);
-            }
-        }
-
-        private static void Simple2(int size, double[] input1, double[] input2, double[] output, Func<double, double, double> op)
+        private static void Simple2<T>(int size, T[] input1, T[] input2, T[] output, Func<T, T, T> op) where T : IComparable<T>
         {
             for (var i = 0; i < size; ++i)
             {
@@ -190,15 +182,7 @@ namespace Tulip
             }
         }
 
-        private static void Simple2(int size, decimal[] input1, decimal[] input2, decimal[] output, Func<decimal, decimal, decimal> op)
-        {
-            for (var i = 0; i < size; ++i)
-            {
-                output[i] = op(input1[i], input2[i]);
-            }
-        }
-
-        internal static int IndicatorRun(string name, double[][] inputs, double[] options, double[][] outputs)
+        public static int IndicatorRun<T>(string name, T[][] inputs, T[] options, T[][] outputs) where T : IComparable<T>
         {
             try
             {
@@ -214,41 +198,13 @@ namespace Tulip
             return TI_OKAY;
         }
 
-        internal static int IndicatorRun(string name, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+        public static int IndicatorStart<T>(string name, T[] options) where T : IComparable<T>
         {
+            const string lookbackSuffix = "Start";
+
             try
             {
-                typeof(Tinet).InvokeMember(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
-                    Type.DefaultBinder, null, new object[] { inputs[0].Length, inputs, options, outputs });
-
-            }
-            catch (MissingMethodException)
-            {
-                return TI_INVALID_OPTION;
-            }
-
-            return TI_OKAY;
-        }
-
-        internal static int IndicatorStart(string name, double[] options)
-        {
-            try
-            {
-                return Convert.ToInt32(typeof(Tinet).InvokeMember($"{name}Start",
-                    BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
-                    Type.DefaultBinder, null, new object[] { options }));
-            }
-            catch (MissingMethodException)
-            {
-                return TI_INVALID_OPTION;
-            }
-        }
-
-        internal static int IndicatorStart(string name, decimal[] options)
-        {
-            try
-            {
-                return Convert.ToInt32(typeof(Tinet).InvokeMember($"{name}Start",
+                return Convert.ToInt32(typeof(Tinet).InvokeMember($"{name}{lookbackSuffix}",
                     BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
                     Type.DefaultBinder, null, new object[] { options }));
             }
