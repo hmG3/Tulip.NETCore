@@ -11,7 +11,7 @@ public sealed class Indicator
         Outputs = outputs.Split('|');
     }
 
-    private string Name { get; }
+    public string Name { get; }
 
     public string FullName { get; }
 
@@ -21,11 +21,13 @@ public sealed class Indicator
 
     public string[] Outputs { get; }
 
+    public int Run(double[][] inputs, double[] options, double[][] outputs) => Tinet.IndicatorRun(Name, inputs, options, outputs);
+
+    public int Run(decimal[][] inputs, decimal[] options, decimal[][] outputs) => Tinet.IndicatorRun(Name, inputs, options, outputs);
+
     public int Start(double[] options) => Tinet.IndicatorStart(Name, options);
 
     public int Start(decimal[] options) => Tinet.IndicatorStart(Name, options);
 
-    public int Run(double[][] inputs, double[] options, double[][] outputs) => Tinet.IndicatorRun(Name, inputs, options, outputs);
-
-    public int Run(decimal[][] inputs, decimal[] options, decimal[][] outputs) => Tinet.IndicatorRun(Name, inputs, options, outputs);
+    public override string ToString() => Name;
 }

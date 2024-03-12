@@ -7,6 +7,37 @@ internal static partial class Tinet
     private const int TI_OKAY = 0;
     private const int TI_INVALID_OPTION = 1;
 
+    const string LookbackSuffix = "Start";
+
+    public static int IndicatorRun<T>(string name, T[][] inputs, T[] options, T[][] outputs) where T : IComparable<T>
+    {
+        try
+        {
+            typeof(Tinet).InvokeMember(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
+                Type.DefaultBinder, null, [inputs[0].Length, inputs, options, outputs]);
+        }
+        catch (MissingMethodException)
+        {
+            return TI_INVALID_OPTION;
+        }
+
+        return TI_OKAY;
+    }
+
+    public static int IndicatorStart<T>(string name, T[] options) where T : IComparable<T>
+    {
+        try
+        {
+            return Convert.ToInt32(typeof(Tinet).InvokeMember($"{name}{LookbackSuffix}",
+                BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
+                Type.DefaultBinder, null, [options]));
+        }
+        catch (MissingMethodException)
+        {
+            return TI_INVALID_OPTION;
+        }
+    }
+
     private static (int size, int pushes, int index, double sum, double[] vals) BufferDoubleFactory(int size) =>
         (size, 0, 0, 0.0, new double[size]);
 
@@ -178,38 +209,6 @@ internal static partial class Tinet
         for (var i = 0; i < size; ++i)
         {
             output[i] = op(input1[i], input2[i]);
-        }
-    }
-
-    public static int IndicatorRun<T>(string name, T[][] inputs, T[] options, T[][] outputs) where T : IComparable<T>
-    {
-        try
-        {
-            typeof(Tinet).InvokeMember(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
-                Type.DefaultBinder, null, new object[] { inputs[0].Length, inputs, options, outputs });
-
-        }
-        catch (MissingMethodException)
-        {
-            return TI_INVALID_OPTION;
-        }
-
-        return TI_OKAY;
-    }
-
-    public static int IndicatorStart<T>(string name, T[] options) where T : IComparable<T>
-    {
-        const string lookbackSuffix = "Start";
-
-        try
-        {
-            return Convert.ToInt32(typeof(Tinet).InvokeMember($"{name}{lookbackSuffix}",
-                BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
-                Type.DefaultBinder, null, new object[] { options }));
-        }
-        catch (MissingMethodException)
-        {
-            return TI_INVALID_OPTION;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Tulip;
 
-public static class Indicators
+public class Indicators : IEnumerable<Indicator>
 {
     private const string HighInput = "high";
     private const string LowInput = "low";
@@ -121,6 +121,14 @@ public static class Indicators
         { nameof(wma), new Indicator("Wma", "Weighted Moving Average", $"{RealInput}", $"{PeriodOption}", nameof(wma)) },
         { nameof(zlema), new Indicator("ZlEma", "Zero-Lag Exponential Moving Average", $"{RealInput}", $"{PeriodOption}", nameof(zlema)) }
     };
+
+    private static readonly Lazy<Indicators> Instance = new(() => []);
+
+    private Indicators()
+    {
+    }
+
+    public static Indicators All => Instance.Value;
 
     public static Indicator abs = IndicatorsDefinition[nameof(abs)];
 
@@ -329,4 +337,13 @@ public static class Indicators
     public static Indicator wma = IndicatorsDefinition[nameof(wma)];
 
     public static Indicator zlema = IndicatorsDefinition[nameof(zlema)];
+
+    public static Indicator Find(string name) =>
+        IndicatorsDefinition.TryGetValue(name, out var function)
+            ? function
+            : throw new ArgumentException("Indicator not found in the library", name);
+
+    public IEnumerator<Indicator> GetEnumerator() => IndicatorsDefinition.Values.GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
