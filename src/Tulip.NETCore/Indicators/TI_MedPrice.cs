@@ -1,35 +1,34 @@
-namespace Tulip
+namespace Tulip;
+
+internal static partial class Tinet
 {
-    internal static partial class Tinet
+    private static int MedPriceStart(double[] options) => 0;
+
+    private static int MedPriceStart(decimal[] options) => 0;
+
+    private static int MedPrice(int size, double[][] inputs, double[] options, double[][] outputs)
     {
-        private static int MedPriceStart(double[] options) => 0;
+        var (high, low) = inputs;
+        var output = outputs[0];
 
-        private static int MedPriceStart(decimal[] options) => 0;
-
-        private static int MedPrice(int size, double[][] inputs, double[] options, double[][] outputs)
+        for (var i = 0; i < size; ++i)
         {
-            var (high, low) = inputs;
-            var output = outputs[0];
-
-            for (var i = 0; i < size; ++i)
-            {
-                output[i] = (high[i] + low[i]) * 0.5;
-            }
-
-            return TI_OKAY;
+            output[i] = (high[i] + low[i]) * 0.5;
         }
 
-        private static int MedPrice(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+        return TI_OKAY;
+    }
+
+    private static int MedPrice(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+    {
+        var (high, low) = inputs;
+        var output = outputs[0];
+
+        for (var i = 0; i < size; ++i)
         {
-            var (high, low) = inputs;
-            var output = outputs[0];
-
-            for (var i = 0; i < size; ++i)
-            {
-                output[i] = (high[i] + low[i]) * 0.5m;
-            }
-
-            return TI_OKAY;
+            output[i] = (high[i] + low[i]) * 0.5m;
         }
+
+        return TI_OKAY;
     }
 }

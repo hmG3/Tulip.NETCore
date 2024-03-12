@@ -1,23 +1,22 @@
-namespace Tulip
+namespace Tulip;
+
+internal static partial class Tinet
 {
-    internal static partial class Tinet
+    private static int CeilStart(double[] options) => 0;
+
+    private static int CeilStart(decimal[] options) => 0;
+
+    private static int Ceil(int size, double[][] inputs, double[] options, double[][] outputs)
     {
-        private static int CeilStart(double[] options) => 0;
+        Simple1(size, inputs[0], outputs[0], Math.Ceiling);
 
-        private static int CeilStart(decimal[] options) => 0;
+        return TI_OKAY;
+    }
 
-        private static int Ceil(int size, double[][] inputs, double[] options, double[][] outputs)
-        {
-            Simple1(size, inputs[0], outputs[0], Math.Ceiling);
+    private static int Ceil(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+    {
+        Simple1(size, inputs[0], outputs[0], Math.Ceiling);
 
-            return TI_OKAY;
-        }
-
-        private static int Ceil(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
-        {
-            Simple1(size, inputs[0], outputs[0], Math.Ceiling);
-
-            return TI_OKAY;
-        }
+        return TI_OKAY;
     }
 }

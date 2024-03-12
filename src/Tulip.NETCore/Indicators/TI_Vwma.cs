@@ -1,89 +1,88 @@
-namespace Tulip
+namespace Tulip;
+
+internal static partial class Tinet
 {
-    internal static partial class Tinet
+    private static int VwmaStart(double[] options) => (int) options[0] - 1;
+
+    private static int VwmaStart(decimal[] options) => (int) options[0] - 1;
+
+    private static int Vwma(int size, double[][] inputs, double[] options, double[][] outputs)
     {
-        private static int VwmaStart(double[] options) => (int) options[0] - 1;
+        var period = (int) options[0];
 
-        private static int VwmaStart(decimal[] options) => (int) options[0] - 1;
-
-        private static int Vwma(int size, double[][] inputs, double[] options, double[][] outputs)
+        if (period < 1)
         {
-            var period = (int) options[0];
+            return TI_INVALID_OPTION;
+        }
 
-            if (period < 1)
-            {
-                return TI_INVALID_OPTION;
-            }
-
-            if (size <= VwmaStart(options))
-            {
-                return TI_OKAY;
-            }
-
-            var (input, volume) = inputs;
-            var output = outputs[0];
-
-            double sum = default;
-            double vSum = default;
-            for (var i = 0; i < period; ++i)
-            {
-                sum += input[i] * volume[i];
-                vSum += volume[i];
-            }
-
-            int outputIndex = default;
-            output[outputIndex++] = sum / vSum;
-            for (var i = period; i < size; ++i)
-            {
-                sum += input[i] * volume[i];
-                sum -= input[i - period] * volume[i - period];
-                vSum += volume[i];
-                vSum -= volume[i - period];
-
-                output[outputIndex++] = sum / vSum;
-            }
-
+        if (size <= VwmaStart(options))
+        {
             return TI_OKAY;
         }
 
-        private static int Vwma(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+        var (input, volume) = inputs;
+        var output = outputs[0];
+
+        double sum = default;
+        double vSum = default;
+        for (var i = 0; i < period; ++i)
         {
-            var period = (int) options[0];
+            sum += input[i] * volume[i];
+            vSum += volume[i];
+        }
 
-            if (period < 1)
-            {
-                return TI_INVALID_OPTION;
-            }
+        int outputIndex = default;
+        output[outputIndex++] = sum / vSum;
+        for (var i = period; i < size; ++i)
+        {
+            sum += input[i] * volume[i];
+            sum -= input[i - period] * volume[i - period];
+            vSum += volume[i];
+            vSum -= volume[i - period];
 
-            if (size <= VwmaStart(options))
-            {
-                return TI_OKAY;
-            }
-
-            var (input, volume) = inputs;
-            var output = outputs[0];
-
-            decimal sum = default;
-            decimal vSum = default;
-            for (var i = 0; i < period; ++i)
-            {
-                sum += input[i] * volume[i];
-                vSum += volume[i];
-            }
-
-            int outputIndex = default;
             output[outputIndex++] = sum / vSum;
-            for (var i = period; i < size; ++i)
-            {
-                sum += input[i] * volume[i];
-                sum -= input[i - period] * volume[i - period];
-                vSum += volume[i];
-                vSum -= volume[i - period];
+        }
 
-                output[outputIndex++] = sum / vSum;
-            }
+        return TI_OKAY;
+    }
 
+    private static int Vwma(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+    {
+        var period = (int) options[0];
+
+        if (period < 1)
+        {
+            return TI_INVALID_OPTION;
+        }
+
+        if (size <= VwmaStart(options))
+        {
             return TI_OKAY;
         }
+
+        var (input, volume) = inputs;
+        var output = outputs[0];
+
+        decimal sum = default;
+        decimal vSum = default;
+        for (var i = 0; i < period; ++i)
+        {
+            sum += input[i] * volume[i];
+            vSum += volume[i];
+        }
+
+        int outputIndex = default;
+        output[outputIndex++] = sum / vSum;
+        for (var i = period; i < size; ++i)
+        {
+            sum += input[i] * volume[i];
+            sum -= input[i - period] * volume[i - period];
+            vSum += volume[i];
+            vSum -= volume[i - period];
+
+            output[outputIndex++] = sum / vSum;
+        }
+
+        return TI_OKAY;
     }
 }

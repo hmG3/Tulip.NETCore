@@ -1,23 +1,22 @@
-namespace Tulip
+namespace Tulip;
+
+internal static partial class Tinet
 {
-    internal static partial class Tinet
+    private static int AcosStart(double[] options) => 0;
+
+    private static int AcosStart(decimal[] options) => 0;
+
+    private static int Acos(int size, double[][] inputs, double[] options, double[][] outputs)
     {
-        private static int AcosStart(double[] options) => 0;
+        Simple1(size, inputs[0], outputs[0], Math.Acos);
 
-        private static int AcosStart(decimal[] options) => 0;
+        return TI_OKAY;
+    }
 
-        private static int Acos(int size, double[][] inputs, double[] options, double[][] outputs)
-        {
-            Simple1(size, inputs[0], outputs[0], Math.Acos);
+    private static int Acos(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+    {
+        Simple1(size, inputs[0], outputs[0], DecimalMath.Acos);
 
-            return TI_OKAY;
-        }
-
-        private static int Acos(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
-        {
-            Simple1(size, inputs[0], outputs[0], DecimalMath.Acos);
-
-            return TI_OKAY;
-        }
+        return TI_OKAY;
     }
 }

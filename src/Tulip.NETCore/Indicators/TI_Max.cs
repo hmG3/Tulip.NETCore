@@ -1,111 +1,110 @@
-namespace Tulip
+namespace Tulip;
+
+internal static partial class Tinet
 {
-    internal static partial class Tinet
+    private static int MaxStart(double[] options) => (int) options[0] - 1;
+
+    private static int MaxStart(decimal[] options) => (int) options[0] - 1;
+
+    private static int Max(int size, double[][] inputs, double[] options, double[][] outputs)
     {
-        private static int MaxStart(double[] options) => (int) options[0] - 1;
+        var period = (int) options[0];
 
-        private static int MaxStart(decimal[] options) => (int) options[0] - 1;
-
-        private static int Max(int size, double[][] inputs, double[] options, double[][] outputs)
+        if (period < 1)
         {
-            var period = (int) options[0];
+            return TI_INVALID_OPTION;
+        }
 
-            if (period < 1)
-            {
-                return TI_INVALID_OPTION;
-            }
-
-            if (size <= MaxStart(options))
-            {
-                return TI_OKAY;
-            }
-
-            var input = inputs[0];
-            var output = outputs[0];
-
-            var maxi = -1;
-            double max = input[0];
-            int outputIndex = default;
-            for (int i = period - 1, trail = 0; i < size; ++i, ++trail)
-            {
-                double bar = input[i];
-
-                if (maxi < trail)
-                {
-                    maxi = trail;
-                    max = input[maxi];
-                    int j = trail;
-                    while (++j <= i)
-                    {
-                        bar = input[j];
-                        if (bar >= max)
-                        {
-                            max = bar;
-                            maxi = j;
-                        }
-                    }
-                }
-                else if (bar >= max)
-                {
-                    maxi = i;
-                    max = bar;
-                }
-
-                output[outputIndex++] = max;
-            }
-
+        if (size <= MaxStart(options))
+        {
             return TI_OKAY;
         }
 
-        private static int Max(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+        var input = inputs[0];
+        var output = outputs[0];
+
+        var maxi = -1;
+        double max = input[0];
+        int outputIndex = default;
+        for (int i = period - 1, trail = 0; i < size; ++i, ++trail)
         {
-            var period = (int) options[0];
+            double bar = input[i];
 
-            if (period < 1)
+            if (maxi < trail)
             {
-                return TI_INVALID_OPTION;
-            }
-
-            if (size <= MaxStart(options))
-            {
-                return TI_OKAY;
-            }
-
-            var input = inputs[0];
-            var output = outputs[0];
-
-            var maxi = -1;
-            decimal max = input[0];
-            int outputIndex = default;
-            for (int i = period - 1, trail = 0; i < size; ++i, ++trail)
-            {
-                decimal bar = input[i];
-
-                if (maxi < trail)
+                maxi = trail;
+                max = input[maxi];
+                int j = trail;
+                while (++j <= i)
                 {
-                    maxi = trail;
-                    max = input[maxi];
-                    int j = trail;
-                    while (++j <= i)
+                    bar = input[j];
+                    if (bar >= max)
                     {
-                        bar = input[j];
-                        if (bar >= max)
-                        {
-                            max = bar;
-                            maxi = j;
-                        }
+                        max = bar;
+                        maxi = j;
                     }
                 }
-                else if (bar >= max)
-                {
-                    maxi = i;
-                    max = bar;
-                }
-
-                output[outputIndex++] = max;
+            }
+            else if (bar >= max)
+            {
+                maxi = i;
+                max = bar;
             }
 
+            output[outputIndex++] = max;
+        }
+
+        return TI_OKAY;
+    }
+
+    private static int Max(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+    {
+        var period = (int) options[0];
+
+        if (period < 1)
+        {
+            return TI_INVALID_OPTION;
+        }
+
+        if (size <= MaxStart(options))
+        {
             return TI_OKAY;
         }
+
+        var input = inputs[0];
+        var output = outputs[0];
+
+        var maxi = -1;
+        decimal max = input[0];
+        int outputIndex = default;
+        for (int i = period - 1, trail = 0; i < size; ++i, ++trail)
+        {
+            decimal bar = input[i];
+
+            if (maxi < trail)
+            {
+                maxi = trail;
+                max = input[maxi];
+                int j = trail;
+                while (++j <= i)
+                {
+                    bar = input[j];
+                    if (bar >= max)
+                    {
+                        max = bar;
+                        maxi = j;
+                    }
+                }
+            }
+            else if (bar >= max)
+            {
+                maxi = i;
+                max = bar;
+            }
+
+            output[outputIndex++] = max;
+        }
+
+        return TI_OKAY;
     }
 }

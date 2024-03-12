@@ -1,175 +1,174 @@
-namespace Tulip
+namespace Tulip;
+
+internal static partial class Tinet
 {
-    internal static partial class Tinet
+    private static int AroonStart(double[] options) => (int) options[0];
+
+    private static int AroonStart(decimal[] options) => (int) options[0];
+
+    private static int Aroon(int size, double[][] inputs, double[] options, double[][] outputs)
     {
-        private static int AroonStart(double[] options) => (int) options[0];
+        var period = (int) options[0];
 
-        private static int AroonStart(decimal[] options) => (int) options[0];
-
-        private static int Aroon(int size, double[][] inputs, double[] options, double[][] outputs)
+        if (period < 1)
         {
-            var period = (int) options[0];
+            return TI_INVALID_OPTION;
+        }
 
-            if (period < 1)
-            {
-                return TI_INVALID_OPTION;
-            }
-
-            if (size <= AroonStart(options))
-            {
-                return TI_OKAY;
-            }
-
-            var (high, low) = inputs;
-            var (aDown, aUp) = outputs;
-
-            double scale = 100.0 / period;
-            var maxi = -1;
-            var mini = -1;
-            double max = high[0];
-            double min = low[0];
-
-            int aDownIndex = default;
-            int aUpIndex = default;
-            for (int i = period, trail = 0; i < size; ++i, ++trail)
-            {
-                // Maintain highest.
-                double bar = high[i];
-                int j;
-                if (maxi < trail)
-                {
-                    maxi = trail;
-                    max = high[maxi];
-                    j = trail;
-                    while (++j <= i)
-                    {
-                        bar = high[j];
-                        if (bar >= max)
-                        {
-                            max = bar;
-                            maxi = j;
-                        }
-                    }
-                }
-                else if (bar >= max)
-                {
-                    maxi = i;
-                    max = bar;
-                }
-
-
-                // Maintain lowest.
-                bar = low[i];
-                if (mini < trail)
-                {
-                    mini = trail;
-                    min = low[mini];
-                    j = trail;
-                    while (++j <= i)
-                    {
-                        bar = low[j];
-                        if (bar <= min)
-                        {
-                            min = bar;
-                            mini = j;
-                        }
-                    }
-                }
-                else if (bar <= min)
-                {
-                    mini = i;
-                    min = bar;
-                }
-
-                // Calculate the indicator.
-                aDown[aDownIndex++] = (period - (i - mini)) * scale;
-                aUp[aUpIndex++] = (period - (i - maxi)) * scale;
-            }
-
+        if (size <= AroonStart(options))
+        {
             return TI_OKAY;
         }
 
-        private static int Aroon(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+        var (high, low) = inputs;
+        var (aDown, aUp) = outputs;
+
+        double scale = 100.0 / period;
+        var maxi = -1;
+        var mini = -1;
+        double max = high[0];
+        double min = low[0];
+
+        int aDownIndex = default;
+        int aUpIndex = default;
+        for (int i = period, trail = 0; i < size; ++i, ++trail)
         {
-            var period = (int) options[0];
-
-            if (period < 1)
+            // Maintain highest.
+            double bar = high[i];
+            int j;
+            if (maxi < trail)
             {
-                return TI_INVALID_OPTION;
-            }
-
-            if (size <= AroonStart(options))
-            {
-                return TI_OKAY;
-            }
-
-            var (high, low) = inputs;
-            var (aDown, aUp) = outputs;
-
-            decimal scale = 100m / period;
-            var maxi = -1;
-            var mini = -1;
-            decimal max = high[0];
-            decimal min = low[0];
-
-            int aDownIndex = default;
-            int aUpIndex = default;
-            for (int i = period, trail = 0; i < size; ++i, ++trail)
-            {
-                // Maintain highest.
-                decimal bar = high[i];
-                int j;
-                if (maxi < trail)
+                maxi = trail;
+                max = high[maxi];
+                j = trail;
+                while (++j <= i)
                 {
-                    maxi = trail;
-                    max = high[maxi];
-                    j = trail;
-                    while (++j <= i)
+                    bar = high[j];
+                    if (bar >= max)
                     {
-                        bar = high[j];
-                        if (bar >= max)
-                        {
-                            max = bar;
-                            maxi = j;
-                        }
+                        max = bar;
+                        maxi = j;
                     }
                 }
-                else if (bar >= max)
-                {
-                    maxi = i;
-                    max = bar;
-                }
-
-
-                // Maintain lowest.
-                bar = low[i];
-                if (mini < trail)
-                {
-                    mini = trail;
-                    min = low[mini];
-                    j = trail;
-                    while (++j <= i)
-                    {
-                        bar = low[j];
-                        if (bar <= min)
-                        {
-                            min = bar;
-                            mini = j;
-                        }
-                    }
-                }
-                else if (bar <= min)
-                {
-                    mini = i;
-                    min = bar;
-                }
-
-                // Calculate the indicator.
-                aDown[aDownIndex++] = (period - (i - mini)) * scale;
-                aUp[aUpIndex++] = (period - (i - maxi)) * scale;
+            }
+            else if (bar >= max)
+            {
+                maxi = i;
+                max = bar;
             }
 
+
+            // Maintain lowest.
+            bar = low[i];
+            if (mini < trail)
+            {
+                mini = trail;
+                min = low[mini];
+                j = trail;
+                while (++j <= i)
+                {
+                    bar = low[j];
+                    if (bar <= min)
+                    {
+                        min = bar;
+                        mini = j;
+                    }
+                }
+            }
+            else if (bar <= min)
+            {
+                mini = i;
+                min = bar;
+            }
+
+            // Calculate the indicator.
+            aDown[aDownIndex++] = (period - (i - mini)) * scale;
+            aUp[aUpIndex++] = (period - (i - maxi)) * scale;
+        }
+
+        return TI_OKAY;
+    }
+
+    private static int Aroon(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
+    {
+        var period = (int) options[0];
+
+        if (period < 1)
+        {
+            return TI_INVALID_OPTION;
+        }
+
+        if (size <= AroonStart(options))
+        {
             return TI_OKAY;
         }
+
+        var (high, low) = inputs;
+        var (aDown, aUp) = outputs;
+
+        decimal scale = 100m / period;
+        var maxi = -1;
+        var mini = -1;
+        decimal max = high[0];
+        decimal min = low[0];
+
+        int aDownIndex = default;
+        int aUpIndex = default;
+        for (int i = period, trail = 0; i < size; ++i, ++trail)
+        {
+            // Maintain highest.
+            decimal bar = high[i];
+            int j;
+            if (maxi < trail)
+            {
+                maxi = trail;
+                max = high[maxi];
+                j = trail;
+                while (++j <= i)
+                {
+                    bar = high[j];
+                    if (bar >= max)
+                    {
+                        max = bar;
+                        maxi = j;
+                    }
+                }
+            }
+            else if (bar >= max)
+            {
+                maxi = i;
+                max = bar;
+            }
+
+
+            // Maintain lowest.
+            bar = low[i];
+            if (mini < trail)
+            {
+                mini = trail;
+                min = low[mini];
+                j = trail;
+                while (++j <= i)
+                {
+                    bar = low[j];
+                    if (bar <= min)
+                    {
+                        min = bar;
+                        mini = j;
+                    }
+                }
+            }
+            else if (bar <= min)
+            {
+                mini = i;
+                min = bar;
+            }
+
+            // Calculate the indicator.
+            aDown[aDownIndex++] = (period - (i - mini)) * scale;
+            aUp[aUpIndex++] = (period - (i - maxi)) * scale;
+        }
+
+        return TI_OKAY;
     }
 }
