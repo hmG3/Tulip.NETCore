@@ -1,5 +1,3 @@
-using System;
-
 namespace Tulip
 {
     internal static partial class Tinet

@@ -1,5 +1,3 @@
-using System;
-
 namespace Tulip
 {
     public sealed class Indicator
