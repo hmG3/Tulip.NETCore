@@ -1,5 +1,6 @@
 using System;
 using System.Buffers;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace Tulip.NETCore.Tests.Models;
@@ -14,15 +15,14 @@ public static class JsonExtensions
             element.WriteTo(writer);
         }
 
-        return JsonSerializer.Deserialize<T>(bufferWriter.WrittenSpan, options);
+        var result = JsonSerializer.Deserialize<T>(bufferWriter.WrittenSpan, options);
+        Debug.Assert(result != null);
+        return result;
     }
 
     public static T ToObject<T>(this JsonDocument document, JsonSerializerOptions? options = null)
     {
-        if (document == null)
-        {
-            throw new ArgumentNullException(nameof(document));
-        }
+        ArgumentNullException.ThrowIfNull(document);
 
         return document.RootElement.ToObject<T>(options);
     }
@@ -45,15 +45,14 @@ public static class JsonExtensions
             throw;
         }
 
-        return JsonSerializer.Deserialize(bufferWriter.WrittenSpan, returnType, options);
+        var result = JsonSerializer.Deserialize(bufferWriter.WrittenSpan, returnType, options);
+        Debug.Assert(result != null);
+        return result;
     }
 
     public static object ToObject(this JsonDocument document, Type returnType, JsonSerializerOptions? options = null)
     {
-        if (document == null)
-        {
-            throw new ArgumentNullException(nameof(document));
-        }
+        ArgumentNullException.ThrowIfNull(document);
 
         return document.RootElement.ToObject(returnType, options);
     }

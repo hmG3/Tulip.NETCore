@@ -1,14 +1,12 @@
 namespace Tulip;
 
-internal static partial class Tinet
+internal static partial class Tinet<T> where T: IFloatingPointIeee754<T>
 {
-    private static int WmaStart(double[] options) => (int) options[0] - 1;
+    private static int WmaStart(T[] options) => Int32.CreateTruncating(options[0]) - 1;
 
-    private static int WmaStart(decimal[] options) => (int) options[0] - 1;
-
-    private static int Wma(int size, double[][] inputs, double[] options, double[][] outputs)
+    private static int Wma(int size, T[][] inputs, T[] options, T[][] outputs)
     {
-        var period = (int) options[0];
+        var period = Int32.CreateTruncating(options[0]);
 
         if (period < 1)
         {
@@ -23,60 +21,19 @@ internal static partial class Tinet
         var input = inputs[0];
         var output = outputs[0];
 
-        double weightSum = default; // Weighted sum of previous numbers.
-        double sum = default; // Flat sum of previous numbers.
+        T weightSum = T.Zero; // Weighted sum of previous numbers.
+        T sum = T.Zero; // Flat sum of previous numbers.
         for (var i = 0; i < period - 1; ++i)
         {
-            weightSum += input[i] * (i + 1);
+            weightSum += input[i] * T.CreateChecked(i + 1);
             sum += input[i];
         }
 
-        double weights = period * (period + 1) / 2.0; // Weights for 6 period WMA: 1 2 3 4 5 6
+        T weights = T.CreateChecked(period * (period + 1)) / TTwo; // Weights for 6 period WMA: 1 2 3 4 5 6
         int outputIndex = default;
         for (var i = period - 1; i < size; ++i)
         {
-            weightSum += input[i] * period;
-            sum += input[i];
-
-            output[outputIndex++] = weightSum / weights;
-
-            weightSum -= sum;
-            sum -= input[i - period + 1];
-        }
-
-        return TI_OKAY;
-    }
-
-    private static int Wma(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
-    {
-        var period = (int) options[0];
-
-        if (period < 1)
-        {
-            return TI_INVALID_OPTION;
-        }
-
-        if (size <= WmaStart(options))
-        {
-            return TI_OKAY;
-        }
-
-        var input = inputs[0];
-        var output = outputs[0];
-
-        decimal weightSum = default; // Weighted sum of previous numbers.
-        decimal sum = default; // Flat sum of previous numbers.
-        for (var i = 0; i < period - 1; ++i)
-        {
-            weightSum += input[i] * (i + 1);
-            sum += input[i];
-        }
-
-        decimal weights = period * (period + 1) / 2m; // Weights for 6 period WMA: 1 2 3 4 5 6
-        int outputIndex = default;
-        for (var i = period - 1; i < size; ++i)
-        {
-            weightSum += input[i] * period;
+            weightSum += input[i] * T.CreateChecked(period);
             sum += input[i];
 
             output[outputIndex++] = weightSum / weights;

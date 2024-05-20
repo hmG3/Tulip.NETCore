@@ -21,13 +21,10 @@ public sealed class Indicator
 
     public string[] Outputs { get; }
 
-    public int Run(double[][] inputs, double[] options, double[][] outputs) => Tinet.IndicatorRun(Name, inputs, options, outputs);
+    public int Run<T>(T[][] inputs, T[] options, T[][] outputs) where T : IFloatingPointIeee754<T> =>
+        Tinet<T>.IndicatorRun(Name, inputs, options, outputs);
 
-    public int Run(decimal[][] inputs, decimal[] options, decimal[][] outputs) => Tinet.IndicatorRun(Name, inputs, options, outputs);
-
-    public int Start(double[] options) => Tinet.IndicatorStart(Name, options);
-
-    public int Start(decimal[] options) => Tinet.IndicatorStart(Name, options);
+    public int Start<T>(T[] options) where T : IFloatingPointIeee754<T> => Tinet<T>.IndicatorStart(Name, options);
 
     public override string ToString() => Name;
 }

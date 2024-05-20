@@ -2,18 +2,23 @@ using System.Reflection;
 
 namespace Tulip;
 
-internal static partial class Tinet
+internal static partial class Tinet<T> where T: IFloatingPointIeee754<T>
 {
     private const int TI_OKAY = 0;
     private const int TI_INVALID_OPTION = 1;
 
     const string LookbackSuffix = "Start";
 
-    public static int IndicatorRun<T>(string name, T[][] inputs, T[] options, T[][] outputs) where T : IComparable<T>
+    private static T TTwo = T.CreateChecked(2);
+    private static T TThree = T.CreateChecked(3);
+    private static T THundred = T.CreateChecked(100);
+
+    public static int IndicatorRun(string name, T[][] inputs, T[] options, T[][] outputs)
     {
         try
         {
-            typeof(Tinet).InvokeMember(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
+            typeof(Tinet<>).MakeGenericType(typeof(T)).InvokeMember(name,
+                BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
                 Type.DefaultBinder, null, [inputs[0].Length, inputs, options, outputs]);
         }
         catch (MissingMethodException)
@@ -24,11 +29,11 @@ internal static partial class Tinet
         return TI_OKAY;
     }
 
-    public static int IndicatorStart<T>(string name, T[] options) where T : IComparable<T>
+    public static int IndicatorStart(string name, T[] options)
     {
         try
         {
-            return Convert.ToInt32(typeof(Tinet).InvokeMember($"{name}{LookbackSuffix}",
+            return Convert.ToInt32(typeof(Tinet<>).MakeGenericType(typeof(T)).InvokeMember($"{name}{LookbackSuffix}",
                 BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.InvokeMethod,
                 Type.DefaultBinder, null, [options]));
         }
@@ -38,13 +43,10 @@ internal static partial class Tinet
         }
     }
 
-    private static (int size, int pushes, int index, double sum, double[] vals) BufferDoubleFactory(int size) =>
-        (size, 0, 0, 0.0, new double[size]);
+    private static (int size, int pushes, int index, T sum, T[] vals) BufferFactory(int size) =>
+        (size, 0, 0, T.Zero, new T[size]);
 
-    private static (int size, int pushes, int index, decimal sum, decimal[] vals) BufferDecimalFactory(int size) =>
-        (size, 0, 0, Decimal.Zero, new decimal[size]);
-
-    private static void BufferPush(ref (int size, int pushes, int index, double sum, double[] vals) buffer, double val)
+    private static void BufferPush(ref (int size, int pushes, int index, T sum, T[] vals) buffer, T val)
     {
         if (buffer.pushes >= buffer.size)
         {
@@ -60,23 +62,7 @@ internal static partial class Tinet
         }
     }
 
-    private static void BufferPush(ref (int size, int pushes, int index, decimal sum, decimal[] vals) buffer, decimal val)
-    {
-        if (buffer.pushes >= buffer.size)
-        {
-            buffer.sum -= buffer.vals[buffer.index];
-        }
-
-        buffer.sum += val;
-        buffer.vals[buffer.index++] = val;
-        ++buffer.pushes;
-        if (buffer.index >= buffer.size)
-        {
-            buffer.index = 0;
-        }
-    }
-
-    private static void BufferQPush(ref (int size, int pushes, int index, double sum, double[] vals) buffer, double val)
+    private static void BufferQPush(ref (int size, int pushes, int index, T sum, T[] vals) buffer, T val)
     {
         buffer.vals[buffer.index++] = val;
         if (buffer.index >= buffer.size)
@@ -85,35 +71,20 @@ internal static partial class Tinet
         }
     }
 
-    private static void BufferQPush(ref (int size, int pushes, int index, decimal sum, decimal[] vals) buffer, decimal val)
-    {
-        buffer.vals[buffer.index++] = val;
-        if (buffer.index >= buffer.size)
-        {
-            buffer.index = 0;
-        }
-    }
-
-    private static double BufferGet((int, int, int, double, double[]) buffer, double val)
+    private static T BufferGet((int, int, int, T, T[]) buffer, int val)
     {
         var (size, _, index, _, vals) = buffer;
         return vals[(Index) ((index + size - 1 + val) % size)];
     }
 
-    private static decimal BufferGet((int, int, int, decimal, decimal[]) buffer, decimal val)
+    private static void CalcTrueRange(T[] low, T[] high, T[] close, int i, out T trueRange)
     {
-        var (size, _, index, _, vals) = buffer;
-        return vals[(Index) ((index + size - 1 + val) % size)];
-    }
-
-    private static void CalcTrueRange(double[] low, double[] high, double[] close, int i, out double trueRange)
-    {
-        double l = low[i];
-        double h = high[i];
-        double c = close[i - 1];
-        double ych = Math.Abs(h - c);
-        double ycl = Math.Abs(l - c);
-        double v = h - l;
+        T l = low[i];
+        T h = high[i];
+        T c = close[i - 1];
+        T ych = T.Abs(h - c);
+        T ycl = T.Abs(l - c);
+        T v = h - l;
         if (ych > v)
         {
             v = ych;
@@ -127,76 +98,31 @@ internal static partial class Tinet
         trueRange = v;
     }
 
-    private static void CalcTrueRange(decimal[] low, decimal[] high, decimal[] close, int i, out decimal trueRange)
-    {
-        decimal l = low[i];
-        decimal h = high[i];
-        decimal c = close[i - 1];
-        decimal ych = Math.Abs(h - c);
-        decimal ycl = Math.Abs(l - c);
-        decimal v = h - l;
-        if (ych > v)
-        {
-            v = ych;
-        }
-
-        if (ycl > v)
-        {
-            v = ycl;
-        }
-
-        trueRange = v;
-    }
-
-    private static void CalcDirection(double[] high, double[] low, int i, out double up, out double down)
+    private static void CalcDirection(T[] high, T[] low, int i, out T up, out T down)
     {
         up = high[i] - high[i - 1];
         down = low[i - 1] - low[i];
 
-        if (up < 0.0)
+        if (up < T.Zero)
         {
-            up = 0.0;
+            up = T.Zero;
         }
         else if (up > down)
         {
-            down = 0.0;
+            down = T.Zero;
         }
 
-        if (down < 0.0)
+        if (down < T.Zero)
         {
-            down = 0.0;
+            down = T.Zero;
         }
         else if (down > up)
         {
-            up = 0.0;
+            up = T.Zero;
         }
     }
 
-    private static void CalcDirection(decimal[] high, decimal[] low, int i, out decimal up, out decimal down)
-    {
-        up = high[i] - high[i - 1];
-        down = low[i - 1] - low[i];
-
-        if (up < Decimal.Zero)
-        {
-            up = Decimal.Zero;
-        }
-        else if (up > down)
-        {
-            down = Decimal.Zero;
-        }
-
-        if (down < Decimal.Zero)
-        {
-            down = Decimal.Zero;
-        }
-        else if (down > up)
-        {
-            up = Decimal.Zero;
-        }
-    }
-
-    private static void Simple1<T>(int size, T[] input, T[] output, Func<T, T> op) where T : IComparable<T>
+    private static void Simple1(int size, T[] input, T[] output, Func<T, T> op)
     {
         for (var i = 0; i < size; ++i)
         {
@@ -204,7 +130,7 @@ internal static partial class Tinet
         }
     }
 
-    private static void Simple2<T>(int size, T[] input1, T[] input2, T[] output, Func<T, T, T> op) where T : IComparable<T>
+    private static void Simple2(int size, T[] input1, T[] input2, T[] output, Func<T, T, T> op)
     {
         for (var i = 0; i < size; ++i)
         {

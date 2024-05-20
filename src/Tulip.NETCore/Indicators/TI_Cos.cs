@@ -1,21 +1,12 @@
 namespace Tulip;
 
-internal static partial class Tinet
+internal static partial class Tinet<T> where T: IFloatingPointIeee754<T>
 {
-    private static int CosStart(double[] options) => 0;
+    private static int CosStart(T[] options) => 0;
 
-    private static int CosStart(decimal[] options) => 0;
-
-    private static int Cos(int size, double[][] inputs, double[] options, double[][] outputs)
+    private static int Cos(int size, T[][] inputs, T[] options, T[][] outputs)
     {
-        Simple1(size, inputs[0], outputs[0], Math.Cos);
-
-        return TI_OKAY;
-    }
-
-    private static int Cos(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
-    {
-        Simple1(size, inputs[0], outputs[0], DecimalMath.Cos);
+        Simple1(size, inputs[0], outputs[0], T.Cos);
 
         return TI_OKAY;
     }

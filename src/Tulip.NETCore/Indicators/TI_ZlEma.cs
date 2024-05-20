@@ -1,14 +1,12 @@
 namespace Tulip;
 
-internal static partial class Tinet
+internal static partial class Tinet<T> where T: IFloatingPointIeee754<T>
 {
-    private static int ZlEmaStart(double[] options) => ((int) options[0] - 1) / 2 - 1;
+    private static int ZlEmaStart(T[] options) => (Int32.CreateTruncating(options[0]) - 1) / 2 - 1;
 
-    private static int ZlEmaStart(decimal[] options) => ((int) options[0] - 1) / 2 - 1;
-
-    private static int ZlEma(int size, double[][] inputs, double[] options, double[][] outputs)
+    private static int ZlEma(int size, T[][] inputs, T[] options, T[][] outputs)
     {
-        var period = (int) options[0];
+        var period = Int32.CreateTruncating(options[0]);
 
         if (period < 1)
         {
@@ -23,48 +21,15 @@ internal static partial class Tinet
         var input = inputs[0];
         var output = outputs[0];
 
-        int lag = (period - 1) / 2;
-        double per = 2.0 / (period + 1);
-        double val = input[lag - 1];
+        var lag = (period - 1) / 2;
+        T per = TTwo / T.CreateChecked(period + 1);
+        T val = input[lag - 1];
         int outputIndex = default;
         output[outputIndex++] = val;
-        for (int i = lag; i < size; ++i)
+        for (var i = lag; i < size; ++i)
         {
-            double c = input[i];
-            double l = input[i - lag];
-            val = (c + (c - l) - val) * per + val;
-            output[outputIndex++] = val;
-        }
-
-        return TI_OKAY;
-    }
-
-    private static int ZlEma(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
-    {
-        var period = (int) options[0];
-
-        if (period < 1)
-        {
-            return TI_INVALID_OPTION;
-        }
-
-        if (size <= ZlEmaStart(options))
-        {
-            return TI_OKAY;
-        }
-
-        var input = inputs[0];
-        var output = outputs[0];
-
-        int lag = (period - 1) / 2;
-        decimal per = 2m / (period + 1);
-        decimal val = input[lag - 1];
-        int outputIndex = default;
-        output[outputIndex++] = val;
-        for (int i = lag; i < size; ++i)
-        {
-            decimal c = input[i];
-            decimal l = input[i - lag];
+            T c = input[i];
+            T l = input[i - lag];
             val = (c + (c - l) - val) * per + val;
             output[outputIndex++] = val;
         }

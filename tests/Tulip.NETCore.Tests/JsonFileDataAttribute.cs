@@ -30,10 +30,7 @@ public sealed class JsonFileDataAttribute : DataAttribute
     /// <inheritDoc />
     public override IEnumerable<object[]> GetData(MethodInfo testMethod)
     {
-        if (testMethod == null)
-        {
-            throw new ArgumentNullException(nameof(testMethod));
-        }
+        ArgumentNullException.ThrowIfNull(testMethod);
 
         var path = Path.IsPathRooted(_filePath)
             ? _filePath
@@ -67,7 +64,7 @@ public sealed class JsonFileDataAttribute : DataAttribute
             }
         }
 
-        foreach (object dataModel in dataModels)
+        foreach (var dataModel in dataModels)
         {
             yield return [dataModel, Path.GetFileName(_filePath)];
         }

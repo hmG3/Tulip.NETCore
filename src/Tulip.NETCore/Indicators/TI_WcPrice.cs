@@ -1,32 +1,17 @@
 namespace Tulip;
 
-internal static partial class Tinet
+internal static partial class Tinet<T> where T: IFloatingPointIeee754<T>
 {
-    private static int WcPriceStart(double[] options) => 0;
+    private static int WcPriceStart(T[] options) => 0;
 
-    private static int WcPriceStart(decimal[] options) => 0;
-
-    private static int WcPrice(int size, double[][] inputs, double[] options, double[][] outputs)
+    private static int WcPrice(int size, T[][] inputs, T[] options, T[][] outputs)
     {
         var (high, low, close) = inputs;
         var output = outputs[0];
 
         for (var i = 0; i < size; ++i)
         {
-            output[i] = (high[i] + low[i] + close[i] + close[i]) * 0.25;
-        }
-
-        return TI_OKAY;
-    }
-
-    private static int WcPrice(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
-    {
-        var (high, low, close) = inputs;
-        var output = outputs[0];
-
-        for (var i = 0; i < size; ++i)
-        {
-            output[i] = (high[i] + low[i] + close[i] + close[i]) * 0.25m;
+            output[i] = (high[i] + low[i] + close[i] + close[i]) * T.CreateChecked(0.25);
         }
 
         return TI_OKAY;

@@ -1,21 +1,12 @@
 namespace Tulip;
 
-internal static partial class Tinet
+internal static partial class Tinet<T> where T : IFloatingPointIeee754<T>
 {
-    private static int LnStart(double[] options) => 0;
+    private static int LnStart(T[] options) => 0;
 
-    private static int LnStart(decimal[] options) => 0;
-
-    private static int Ln(int size, double[][] inputs, double[] options, double[][] outputs)
+    private static int Ln(int size, T[][] inputs, T[] options, T[][] outputs)
     {
-        Simple1(size, inputs[0], outputs[0], Math.Log);
-
-        return TI_OKAY;
-    }
-
-    private static int Ln(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
-    {
-        Simple1(size, inputs[0], outputs[0], DecimalMath.Log);
+        Simple1(size, inputs[0], outputs[0], T.Log);
 
         return TI_OKAY;
     }

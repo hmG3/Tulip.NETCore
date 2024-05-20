@@ -11,10 +11,10 @@ public sealed class Indicator_Tests
     [JsonFileData("DataSets/atoz.json", typeof(double), "_")]
     [JsonFileData("DataSets/extra.json", typeof(double), "_")]
 #pragma warning disable xUnit1026
-    public void Should_Return_CorrectOutput_With_OKStatus_For_DoubleInput(TestDataModel<double> model, string fileName)
+    public void Should_Calculate_CorrectOutput_With_OKStatus_For_DoubleInput(TestDataModel<double> model, string fileName)
 #pragma warning restore xUnit1026
     {
-        Skip.If(model.Skip, "Test has been skipped in configuration");
+        Skip.If(model.Skip, "Test marked as skipped in the dataset.");
 
         const double equalityTolerance = 0.001d;
 
@@ -22,7 +22,7 @@ public sealed class Indicator_Tests
         var indicator = Indicators.IndicatorsDefinition[model.Name];
 
         model.Options.Length.ShouldBe(indicator.Options.Length, "Number of options must match the definition");
-        var inputOffset = indicator.Start(model.Options);
+        var inputOffset = indicator.Start<double>(model.Options);
         model.Inputs.Length.ShouldBe(indicator.Inputs.Length, "Number of inputs must match the definition");
         var outputLength = model.Inputs[0].Length - inputOffset;
         outputLength.ShouldBePositive("Output array should have the correct length");
@@ -34,7 +34,7 @@ public sealed class Indicator_Tests
             resultOutput[i] = new double[outputLength];
         }
 
-        var returnCode = indicator.Run(model.Inputs, model.Options, resultOutput);
+        var returnCode = indicator.Run<double>(model.Inputs, model.Options, resultOutput);
         returnCode.ShouldBe(0, "Indicator should complete with success status code TI_OK(0)");
 
         for (var i = 0; i < resultOutput.Length; i++)
@@ -47,34 +47,36 @@ public sealed class Indicator_Tests
     }
 
     [SkippableTheory]
-    [JsonFileData("DataSets/untest.json", typeof(decimal), "_")]
-    [JsonFileData("DataSets/atoz.json", typeof(decimal), "_")]
-    [JsonFileData("DataSets/extra.json", typeof(decimal), "_")]
+    [JsonFileData("DataSets/untest.json", typeof(float), "_")]
+    [JsonFileData("DataSets/atoz.json", typeof(float), "_")]
+    [JsonFileData("DataSets/extra.json", typeof(float), "_")]
 #pragma warning disable xUnit1026
-    public void Should_Return_CorrectOutput_With_OKStatus_For_DecimalInput(TestDataModel<decimal> model, string fileName)
-#pragma warning disable xUnit1026
+    public void Should_Calculate_CorrectOutput_With_OKStatus_For_FloatInput(TestDataModel<float> model, string fileName)
+#pragma warning restore xUnit1026
     {
-        Skip.If(model.Skip, "Test has been skipped in configuration");
+        Skip.If(model.Skip, "Test marked as skipped in the dataset.");
+        Skip.If((fileName == "untest.json" && model.Name is "ad" or "adosc") || model.Name is "kvo",
+            "The precision of floating-point arithmetic is insufficient for calculating accurate results.");
 
-        const decimal equalityTolerance = 0.001m;
+        const float equalityTolerance = 0.1f;
 
         Indicators.IndicatorsDefinition.ShouldContainKey(model.Name, $"Cannot find definition for '{model.Name}");
         var indicator = Indicators.IndicatorsDefinition[model.Name];
 
         model.Options.Length.ShouldBe(indicator.Options.Length, "Number of options must match the definition");
-        var inputOffset = indicator.Start(model.Options);
+        var inputOffset = indicator.Start<float>(model.Options);
         model.Inputs.Length.ShouldBe(indicator.Inputs.Length, "Number of inputs must match the definition");
         var outputLength = model.Inputs[0].Length - inputOffset;
         outputLength.ShouldBePositive("Output array should have the correct length");
 
-        var resultOutput = new decimal[model.Outputs.Length][];
+        var resultOutput = new float[model.Outputs.Length][];
         resultOutput.Length.ShouldBe(indicator.Outputs.Length, "Number of outputs must match the definition");
         for (var i = 0; i < resultOutput.Length; i++)
         {
-            resultOutput[i] = new decimal[outputLength];
+            resultOutput[i] = new float[outputLength];
         }
 
-        var returnCode = indicator.Run(model.Inputs, model.Options, resultOutput);
+        var returnCode = indicator.Run<float>(model.Inputs, model.Options, resultOutput);
         returnCode.ShouldBe(0, "Indicator should complete with success status code TI_OK(0)");
 
         for (var i = 0; i < resultOutput.Length; i++)

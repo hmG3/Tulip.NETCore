@@ -1,14 +1,14 @@
-using System;
+using System.Numerics;
 
 namespace Tulip.NETCore.Tests.Models;
 
-public class TestDataModel<T> where T : struct
+public class TestDataModel<T> where T : IFloatingPointIeee754<T>
 {
     public string Name { get; set; } = null!;
 
     public T[][] Inputs { get; set; } = null!;
 
-    public T[] Options { get; set; } = Array.Empty<T>();
+    public T[] Options { get; set; } = [];
 
     public T[][] Outputs { get; set; } = null!;
 

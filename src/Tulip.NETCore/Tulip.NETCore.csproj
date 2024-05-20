@@ -10,7 +10,7 @@
     <Copyright>Tulip Charts LLC</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://tulipindicators.org</PackageProjectUrl>
-    <Version>0.8.1</Version>
+    <Version>0.9.0</Version>
     <RepositoryUrl>https://github.com/hmG3/Tulip.NETCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIcon>tulip.png</PackageIcon>

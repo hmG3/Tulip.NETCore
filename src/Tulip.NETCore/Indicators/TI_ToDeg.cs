@@ -1,21 +1,12 @@
 namespace Tulip;
 
-internal static partial class Tinet
+internal static partial class Tinet<T> where T: IFloatingPointIeee754<T>
 {
-    private static int ToDegStart(double[] options) => 0;
+    private static int ToDegStart(T[] options) => 0;
 
-    private static int ToDegStart(decimal[] options) => 0;
-
-    private static int ToDeg(int size, double[][] inputs, double[] options, double[][] outputs)
+    private static int ToDeg(int size, T[][] inputs, T[] options, T[][] outputs)
     {
-        Simple1(size, inputs[0], outputs[0], d => d * (180.0 / Math.PI));
-
-        return TI_OKAY;
-    }
-
-    private static int ToDeg(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
-    {
-        Simple1(size, inputs[0], outputs[0], DecimalMath.ToDeg);
+        Simple1(size, inputs[0], outputs[0], T.RadiansToDegrees);
 
         return TI_OKAY;
     }

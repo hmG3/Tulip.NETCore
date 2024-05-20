@@ -1,14 +1,12 @@
 namespace Tulip;
 
-internal static partial class Tinet
+internal static partial class Tinet<T> where T: IFloatingPointIeee754<T>
 {
-    private static int StdErrStart(double[] options) => (int) options[0] - 1;
+    private static int StdErrStart(T[] options) => Int32.CreateTruncating(options[0]) - 1;
 
-    private static int StdErrStart(decimal[] options) => (int) options[0] - 1;
-
-    private static int StdErr(int size, double[][] inputs, double[] options, double[][] outputs)
+    private static int StdErr(int size, T[][] inputs, T[] options, T[][] outputs)
     {
-        var period = (int) options[0];
+        var period = Int32.CreateTruncating(options[0]);
 
         if (period < 1)
         {
@@ -23,22 +21,22 @@ internal static partial class Tinet
         var input = inputs[0];
         var output = outputs[0];
 
-        double sum = default;
-        double sum2 = default;
+        T sum = T.Zero;
+        T sum2 = T.Zero;
         for (var i = 0; i < period; ++i)
         {
             sum += input[i];
             sum2 += input[i] * input[i];
         }
 
-        double scale = 1.0 / period;
-        double s2S2 = sum2 * scale - sum * scale * (sum * scale);
-        if (s2S2 > 0.0)
+        T scale = T.One / T.CreateChecked(period);
+        T s2S2 = sum2 * scale - sum * scale * (sum * scale);
+        if (s2S2 > T.Zero)
         {
-            s2S2 = Math.Sqrt(s2S2);
+            s2S2 = T.Sqrt(s2S2);
         }
 
-        double mul = 1.0 / Math.Sqrt(period);
+        T mul = T.One / T.Sqrt(T.CreateChecked(period));
         int outputIndex = default;
         output[outputIndex++] = mul * s2S2;
         for (var i = period; i < size; ++i)
@@ -49,63 +47,9 @@ internal static partial class Tinet
             sum -= input[i - period];
             sum2 -= input[i - period] * input[i - period];
             s2S2 = sum2 * scale - sum * scale * (sum * scale);
-            if (s2S2 > 0.0)
+            if (s2S2 > T.Zero)
             {
-                s2S2 = Math.Sqrt(s2S2);
-            }
-
-            output[outputIndex++] = mul * s2S2;
-        }
-
-        return TI_OKAY;
-    }
-
-    private static int StdErr(int size, decimal[][] inputs, decimal[] options, decimal[][] outputs)
-    {
-        var period = (int) options[0];
-
-        if (period < 1)
-        {
-            return TI_INVALID_OPTION;
-        }
-
-        if (size <= StdErrStart(options))
-        {
-            return TI_OKAY;
-        }
-
-        var input = inputs[0];
-        var output = outputs[0];
-
-        decimal sum = default;
-        decimal sum2 = default;
-        for (var i = 0; i < period; ++i)
-        {
-            sum += input[i];
-            sum2 += input[i] * input[i];
-        }
-
-        decimal scale = Decimal.One / period;
-        decimal s2S2 = sum2 * scale - sum * scale * sum * scale;
-        if (s2S2 > Decimal.Zero)
-        {
-            s2S2 = DecimalMath.Sqrt(s2S2);
-        }
-
-        decimal mul = Decimal.One / DecimalMath.Sqrt(period);
-        int outputIndex = default;
-        output[outputIndex++] = mul * s2S2;
-        for (var i = period; i < size; ++i)
-        {
-            sum += input[i];
-            sum2 += input[i] * input[i];
-
-            sum -= input[i - period];
-            sum2 -= input[i - period] * input[i - period];
-            s2S2 = sum2 * scale - sum * scale * sum * scale;
-            if (s2S2 > Decimal.Zero)
-            {
-                s2S2 = DecimalMath.Sqrt(s2S2);
+                s2S2 = T.Sqrt(s2S2);
             }
 
             output[outputIndex++] = mul * s2S2;
