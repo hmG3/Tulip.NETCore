@@ -4,6 +4,7 @@ Tulip.NETCore is an **unofficial** .NET port of the Tulip Indicators (TI) - open
 
 [![License](https://img.shields.io/github/license/hmG3/Tulip.NETCore?logo=open-source-initiative)](https://opensource.org/licenses/LGPL-3.0)
 [![NuGet](https://img.shields.io/nuget/v/Tulip.NETCore.svg?logo=nuget)](https://nuget.org/packages/Tulip.NETCore)
+[![NuGet](https://img.shields.io/nuget/dt/Tulip.NETCore.svg)](https://nuget.org/packages/Tulip.NETCore)
 [![Build status](https://github.com/hmG3/Tulip.NETCore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmG3/Tulip.NETCore/actions/workflows/dotnet.yml)
 [![Coverage status](https://codecov.io/gh/hmG3/Tulip.NETCore/graph/badge.svg?token=NP4J6Q69AQ)](https://codecov.io/gh/hmG3/Tulip.NETCore)
 [![Code quality](https://app.codacy.com/project/badge/Grade/17065bed437d4409a4b0cfe5343c1d87)](https://app.codacy.com/gh/hmG3/Tulip.NETCore/dashboard)
